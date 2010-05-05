@@ -7,14 +7,19 @@ namespace dppopt
 {
     public class Option
     {
-        public Option(Action action) {
+        public Option(string[] names, string helpText, Action action)
+        {
             action_ = action;
+            helpText_ = helpText;
+            names_ = names.ToList();
         }
 
         public List<string> Names
         {
-            get;
-            set;
+            get {
+                // TODO: return a copy or unmodifiable variant
+                return names_;
+            }
         }
 
         public Action Action
@@ -22,16 +27,44 @@ namespace dppopt
             get {return action_; }
         }
 
+        public bool Required { get; set; } // TODO: default: false
+        
+        public bool ParametersRequired { get; set; } // TODO: default: false
+
+        public int ParametersCount { get; set; } // TODO: [0;1], default: 1
+
         public string HelpText
         {
-            get;
-            set;
+            get { return helpText_; }
         }
 
-        public void HandleOption(string argument, OptionParser parser) {
-            Action.Execute((new string[] { argument }).ToList<string>(), parser);
+        public string MetaVariable {
+            get {
+                if (metaVariable_ == null) {
+                    metaVariable_ = GetDefaultMetaVariable();
+                }
+                return metaVariable_;
+            }
+            set {
+                metaVariable_ = value;
+            }
+        }
+
+        private string GetDefaultMetaVariable() {
+            // TODO: compute from Names
+            // - get the first short or long option name
+            // - change it somehow:
+            //   - example: --my-version -> MY_VERSION
+            return "";
+        }
+
+        public void HandleOption(List<string> arguments, OptionParser parser) {
+            Action.Execute(arguments, parser);
         }
 
         Action action_;
+        List<string> names_;
+        string helpText_;
+        string metaVariable_ = null;
     }
 }

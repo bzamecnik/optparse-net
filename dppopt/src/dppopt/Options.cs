@@ -11,20 +11,24 @@ namespace dppopt
         {
             foreach (string name in option.Names)
             {
-                optionMap_.Add(name, option);
+                optionsMap_.Add(name, option);
             }
         }
 
         public Option GetOption(string name)
         {
-            return optionMap_[name];
+            return optionsMap_[name];
         }
 
         public bool HasOption(string name)
         {
-            return optionMap_.ContainsKey(name);
+            return optionsMap_.ContainsKey(name);
         }
 
-        private Dictionary<string, Option> optionMap_ = new Dictionary<string, Option>();
+        public List<Option> ToList() {
+            return optionsMap_.Values.ToList();
+        }
+
+        private Dictionary<string, Option> optionsMap_ = new Dictionary<string, Option>();
     }
 }

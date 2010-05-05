@@ -5,9 +5,10 @@ using System.Text;
 
 namespace dppopt
 {
-    public class ArgumentParserFactory
+    public sealed class ArgumentParserFactory
     {
-        public static ArgumentParser<ValueType> GetParser<ValueType>() {
+        public static ArgumentParser<ValueType> GetParser<ValueType>()
+        {
             Type valueType = typeof(ValueType);
             if (!knownParsers_.ContainsKey(valueType))
             {
@@ -15,19 +16,35 @@ namespace dppopt
             }
             object parserObject = knownParsers_[valueType];
             ArgumentParser<ValueType> parser = parserObject as ArgumentParser<ValueType>;
-            if (parser == null) {
+            if (parser == null)
+            {
                 throw new InvalidArgumentParserException("Invalid parser instance ...");
             }
             return parser;
         }
 
-        static void RegisterParsers(Dictionary<Type, object> knownParsers) {
-            knownParsers.Add(typeof(string), new StringArgumentParser());
-            knownParsers.Add(typeof(int), new IntArgumentParser());
-            knownParsers.Add(typeof(double), new DoubleArgumentParser());
-            knownParsers.Add(typeof(bool), new BoolArgumentParser());
+        public static void RegisterParser<ValueType>(ArgumentParser<ValueType> argumentParser)
+        {
+            RegisterParser<ValueType>(knownParsers_, argumentParser);
         }
 
-        static Dictionary<Type, object> knownParsers_ = new Dictionary<Type, object>();
+        private static void RegisterParser<ValueType>(
+            Dictionary<Type, object> knownParsers,
+            ArgumentParser<ValueType> argumentParser)
+        {
+            knownParsers.Add(typeof(ValueType), argumentParser);
+        }
+
+        private static Dictionary<Type, object> RegisterParsers()
+        {
+            Dictionary<Type, object> knownParsers = new Dictionary<Type, object>();
+            RegisterParser<string>(knownParsers, new StringArgumentParser());
+            RegisterParser<int>(knownParsers, new IntArgumentParser());
+            RegisterParser<double>(knownParsers, new DoubleArgumentParser());
+            RegisterParser<bool>(knownParsers, new BoolArgumentParser());
+            return knownParsers;
+        }
+
+        private static Dictionary<Type, object> knownParsers_ = RegisterParsers();
     }
 }

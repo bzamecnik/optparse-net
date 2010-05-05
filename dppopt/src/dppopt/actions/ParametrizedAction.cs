@@ -13,7 +13,12 @@ namespace dppopt
 
         public ArgumentParser<ValueType> ParameterParser
         {
-            get { return parameterParser_; }
+            get {
+                if (parameterParser_ == null) {
+                    parameterParser_ = ArgumentParserFactory.GetParser<ValueType>();
+                }
+                return parameterParser_;
+            }
             set { parameterParser_ = value; }
         }
 
@@ -34,6 +39,8 @@ namespace dppopt
             return new List<ValueType>();
         }
 
-        private ArgumentParser<ValueType> parameterParser_ = ParameterParserFactory.GetParser(typeof(ValueType));
+        // TODO: this might throw an InvalidArgumentParserException
+        // Probably use a factory method for actions.
+        private ArgumentParser<ValueType> parameterParser_;
     }
 }

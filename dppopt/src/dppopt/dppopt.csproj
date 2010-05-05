@@ -50,6 +50,8 @@
     <Compile Include="argumentParsers\StringArgumentParser.cs" />
     <Compile Include="filters\ChoiceValueFilter.cs" />
     <Compile Include="filters\EmptyValueFilter.cs" />
+    <Compile Include="help\HelpFormatter.cs" />
+    <Compile Include="help\SimpleHelpFormatter.cs" />
     <Compile Include="Option.cs" />
     <Compile Include="OptionParser.cs" />
     <Compile Include="Options.cs" />

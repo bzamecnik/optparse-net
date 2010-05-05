@@ -1,101 +1,102 @@
-OptionParser parser = new OptionParser()
-	{ ProgramName = "foo", ProgramVersion = "3.14" };
+OptionParser parser = new OptionParser();
+parser.ProgramInfo.Name = "foo";
+parser.ProgramInfo.Version = "3.14";
 
-Value<string> text = new Value<string>(); 
+OptionValue<string> text = new OptionValue<string>(); 
 parser.AddOption(
-	new Option<string>(
-		{"-f", "--file", "-F", "--filename"},
+	new Option(
+		new string [] {"-f", "--file", "-F", "--filename"},
 		"Input filename",
 		new StoreAction<string>(text)		
-	) { Required = True, ParamsRequired = True }
+	) { Required = true, ParametersRequired = true }
 	);
 
-Value<bool> verbose = Value<bool>(false);
+OptionValue<bool> verbose = new OptionValue<bool>(false);
 parser.AddOption(
-	new Option({"-v", "--verbose"}, "Enable verbose mode",
-		new StoreConstAction<bool>(verbose, True)
-	) { ParamCount = 0 }
+	new Option(new string [] {"-v", "--verbose"}, "Enable verbose mode",
+		new StoreConstAction<bool>(verbose, true)
+	) { ParametersCount = 0 }
 	);
 
 parser.AddOption(
-	new Option({"-q", "--quiet"}, "Disable verbose mode",
-		new StoreConstAction<bool>(verbose, False)
-	) { ParamCount = 0 }
+	new Option(new string [] {"-q", "--quiet"}, "Disable verbose mode",
+		new StoreConstAction<bool>(verbose, false)
+	) { ParametersCount = 0 }
 	);
 
-Value<int> age = new Value<int>(20); // default value = 20 
+OptionValue<int> age = new OptionValue<int>(20); // default value = 20 
 parser.AddOption(
-	new Option({"-t", "--temperature"}, "Temperature",
+	new Option(new string [] {"-t", "--temperature"}, "Temperature",
 		new StoreAction<int>(age))
 	);
 
-Value<double> temperature = new Value<double>();
+OptionValue<double> temperature = new OptionValue<double>();
 parser.AddOption(
-	new Option({"-t", "--temperature"}, "Temperature",
+	new Option(new string [] {"-t", "--temperature"}, "Temperature",
 		new StoreAction<double>(temperature))
-		{ ParamsRequired = True }
+		{ ParametersRequired = true }
 	);
 
-Value<List<double>> temperatureList = new Value<List<double>>();
+OptionValue<List<double>> temperatureList = new OptionValue<List<double>>();
 parser.AddOption(
-	new Option({"-t", "--temperature"}, "Temperatures",
+	new Option(new string [] {"-t", "--temperature"}, "Temperatures",
 		new AppendAction<double>(temperatureList))
-		{ ParamsRequired = True }
+		{ ParametersRequired = true }
 	);
 
-Value<string> dayInWeekName = new Value<string>();
+OptionValue<string> dayInWeekName = new OptionValue<string>();
 parser.AddOption(
-	new Option({"-d", "--day"}, "Day in week",
-		new StoreAction<string>(dayInWeekName))
-			{ ValueFilter = new ChoiceValueFilter<string>(
-				{"mon", "tue", "wed", "thu", "sat", "sun"}) }
-		{ ParamsRequired = True }
+	new Option(new string [] {"-d", "--day"}, "Day in week",
+		new StoreAction<string>(dayInWeekName)
+			{ Filter = new ChoiceValueFilter<string>(
+				new string [] {"mon", "tue", "wed", "thu", "sat", "sun"}) })
+		{ ParametersRequired = true }
 	);
 
-Value<int> dayInWeekNumber = Value<int>(5);
+OptionValue<int> dayInWeekNumber = new OptionValue<int>(5);
 parser.AddOption(
-	new Option({"-d", "--day"}, "Day in week",
+	new Option(new string [] {"-d", "--day"}, "Day in week",
 		new StoreAction<int>(dayInWeekNumber)
-			{ ValueFilter = new RangeValueFilter<int>() { Min = 1, Max = 7 } }
+			{ Filter = new RangeValueFilter<int>() { Min = 1, Max = 7 } }
 		)
-		{ MetaVar = "DAY" }
+		{ MetaVariable = "DAY" }
 	);
 
 // volby --version, --help a -- by mohly byt zabudovane v parseru
 
 parser.AddOption(
-	new Option({"-v", "--version"}, "Print program version",
-		new SimpleCallbackAction((OptionParser parser) => {
-			parser.printVersionInfo();
-			parser.exitProgram();
+	new Option(new string [] {"-v", "--version"}, "Print program version",
+		new SimpleCallbackAction((OptionParser p) => {
+			p.PrintVersionInfo(Console.Out);
+			p.ExitProgram();
 		})
-	);
+	));
 
 parser.AddOption(
-	new Option({"-h", "--help"}, "Print help about program options",
-		new SimpleCallbackAction((OptionParser parser) => {
-			parser.printHelp();
-			parser.exitProgram();
+	new Option(new string [] {"-h", "--help"}, "Print help about program options",
+		new SimpleCallbackAction((OptionParser p) => {
+			p.PrintHelp(Console.Out);
+			p.ExitProgram();
 		})
-	);
+	));
 
 parser.AddOption(
-	new Option({"--"}, "Do not treat the rest of arguments as options",
-		new SimpleCallbackAction((OptionParser parser) => {
-			parser.stop();
+	new Option(new string [] {"--"}, "Do not treat the rest of arguments as options",
+		new SimpleCallbackAction((OptionParser p) => {
+			p.Stop();
 		})
-	);
+	));
 
 parser.AddOption(
-	new Option({"-m"}, "Do some magic tricks on the parameter",
-		new CallbackAction<double>((OptionParser parser, double value) => {
+	new Option(new string [] {"-m"}, "Do some magic tricks on the parameter",
+		new CallbackAction<double>((List<string> value, OptionParser p) => {
 			// ...
 		})
-	);
+	));
 
 List<string> remainingArgs;
 try {
-	remainingArgs = parser.ParseArgs(args);
+	remainingArgs = parser.ParseArguments(args);
 } catch (ParseException exception) {
 	// ...
 }
