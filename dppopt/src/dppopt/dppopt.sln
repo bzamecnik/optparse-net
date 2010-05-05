@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C# Express 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dppopt", "dppopt.csproj", "{2098C9C4-2B92-4F0C-8B9F-ECAB0DD4302A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2098C9C4-2B92-4F0C-8B9F-ECAB0DD4302A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2098C9C4-2B92-4F0C-8B9F-ECAB0DD4302A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2098C9C4-2B92-4F0C-8B9F-ECAB0DD4302A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2098C9C4-2B92-4F0C-8B9F-ECAB0DD4302A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

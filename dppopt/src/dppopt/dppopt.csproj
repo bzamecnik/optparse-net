@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2098C9C4-2B92-4F0C-8B9F-ECAB0DD4302A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>dppopt</RootNamespace>
+    <AssemblyName>dppopt</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="actions\Action.cs" />
+    <Compile Include="actions\CallbackAction.cs" />
+    <Compile Include="argumentParsers\ArgumentParserFactory.cs" />
+    <Compile Include="argumentParsers\BoolArgumentParser.cs" />
+    <Compile Include="argumentParsers\DoubleArgumentParser.cs" />
+    <Compile Include="argumentParsers\IntArgumentParser.cs" />
+    <Compile Include="argumentParsers\InvalidArgumentParserException.cs" />
+    <Compile Include="argumentParsers\StringArgumentParser.cs" />
+    <Compile Include="filters\ChoiceValueFilter.cs" />
+    <Compile Include="filters\EmptyValueFilter.cs" />
+    <Compile Include="Option.cs" />
+    <Compile Include="OptionParser.cs" />
+    <Compile Include="Options.cs" />
+    <Compile Include="OptionValue.cs" />
+    <Compile Include="actions\ParametrizedAction.cs" />
+    <Compile Include="ParseException.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="filters\RangeValueFilter.cs" />
+    <Compile Include="actions\SimpleCallbackAction.cs" />
+    <Compile Include="actions\StorageAction.cs" />
+    <Compile Include="actions\StoreAction.cs" />
+    <Compile Include="actions\StoreConstAction.cs" />
+    <Compile Include="filters\ValueFilter.cs" />
+    <Compile Include="argumentParsers\ArgumentParser.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
