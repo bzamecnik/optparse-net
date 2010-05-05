@@ -7,6 +7,8 @@ namespace dppopt
 {
     public sealed class ArgumentParserFactory
     {
+        #region Public methods
+
         public static ArgumentParser<ValueType> GetParser<ValueType>()
         {
             Type valueType = typeof(ValueType);
@@ -28,6 +30,10 @@ namespace dppopt
             RegisterParser<ValueType>(knownParsers_, argumentParser);
         }
 
+        #endregion
+
+        #region Private methods
+
         private static void RegisterParser<ValueType>(
             Dictionary<Type, object> knownParsers,
             ArgumentParser<ValueType> argumentParser)
@@ -45,6 +51,12 @@ namespace dppopt
             return knownParsers;
         }
 
+        #endregion
+
+        #region Private fields
+
         private static Dictionary<Type, object> knownParsers_ = RegisterParsers();
+
+        #endregion
     }
 }

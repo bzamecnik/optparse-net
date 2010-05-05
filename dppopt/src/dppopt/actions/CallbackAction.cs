@@ -12,11 +12,12 @@ namespace dppopt
             callback_ = callback;
         }
 
-        public override void Execute(List<string> arguments, OptionParser parser) {
-            callback_(arguments, parser);
+        public override void Execute(List<string> arguments, OptionParser.State parserState)
+        {
+            callback_(arguments, parserState);
         }
 
-        public delegate void Callback(List<string> arguments, OptionParser parser);
+        public delegate void Callback(List<string> arguments, OptionParser.State parserState);
 
         Callback callback_;
     }

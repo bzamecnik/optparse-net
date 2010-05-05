@@ -7,15 +7,22 @@ namespace dppopt
 {
     public class OptionValue<ValueType>
     {
+        #region Construction
+
         public OptionValue() { }
 
-        public OptionValue(ValueType defaultValue) { value_ = defaultValue; }
+        public OptionValue(ValueType defaultValue) { Value = defaultValue; }
 
-        public ValueType Value {
-            get { return value_; }
-            set { value_ = value; }
+        #endregion
+
+        #region Public properties
+
+        public ValueType Value
+        {
+            get;
+            set;
         }
 
-        ValueType value_;
+        #endregion
     }
 }

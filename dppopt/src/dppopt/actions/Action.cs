@@ -7,6 +7,6 @@ namespace dppopt
 {
     public interface Action
     {
-        void Execute(List<string> arguments, OptionParser parser);
+        void Execute(List<string> arguments, OptionParser.State parserState);
     }
 }

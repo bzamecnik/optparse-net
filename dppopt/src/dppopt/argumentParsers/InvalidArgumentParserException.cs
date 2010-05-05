@@ -7,11 +7,15 @@ namespace dppopt
 {
     public class InvalidArgumentParserException : ApplicationException
     {
+        #region Construction
+
         public InvalidArgumentParserException() { }
 
         public InvalidArgumentParserException(string message) : base(message) { }
 
         public InvalidArgumentParserException(string message, Exception innerException)
             : base(message, innerException) { }
+
+        #endregion
     }
 }

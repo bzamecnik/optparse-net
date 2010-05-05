@@ -7,8 +7,13 @@ namespace dppopt
 {
     public sealed class EmptyValueFilter<ValueType> : ValueFilter<ValueType>
     {
-        public bool IsValid(ValueType value) {
+        #region Public methods
+
+        public bool IsValid(ValueType value)
+        {
             return true;
         }
+
+        #endregion
     }
 }

@@ -6,6 +6,8 @@ namespace dppopt
 {
     public class BoolArgumentParser : ArgumentParser<bool>
     {
+        #region Public methods
+
         public bool ParseArgument(string argument)
         {
             bool value;
@@ -19,5 +21,7 @@ namespace dppopt
             }
             return value;
         }
+
+        #endregion
     }
 }

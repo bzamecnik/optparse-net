@@ -7,13 +7,17 @@ namespace dppopt
 {
     public class IntArgumentParser : ArgumentParser<int>
     {
-        public int ParseArgument(string argument) {
+        #region Public methods
+
+        public int ParseArgument(string argument)
+        {
             int value;
             try
             {
                 value = Int32.Parse(argument);
             }
-            catch (FormatException ex) {
+            catch (FormatException ex)
+            {
                 throw new ParseException("IntArgumentParser: Invalid argument format", ex);
             }
             catch (OverflowException ex)
@@ -22,5 +26,7 @@ namespace dppopt
             }
             return value;
         }
+
+        #endregion
     }
 }

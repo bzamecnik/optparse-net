@@ -54,7 +54,6 @@
     <Compile Include="help\SimpleHelpFormatter.cs" />
     <Compile Include="Option.cs" />
     <Compile Include="OptionParser.cs" />
-    <Compile Include="Options.cs" />
     <Compile Include="OptionValue.cs" />
     <Compile Include="actions\ParametrizedAction.cs" />
     <Compile Include="ParseException.cs" />

@@ -2,55 +2,88 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace dppopt
 {
-    public class Option
+    /// <summary>
+    /// Definition of an option.
+    /// </summary>
+    public sealed class Option
     {
-        public Option(string[] names, string helpText, Action action)
+        #region Construction
+
+        private Option(string[] names, string helpText, Action action)
         {
-            action_ = action;
-            helpText_ = helpText;
-            names_ = names.ToList();
+            Action = action;
+            HelpText = helpText;
+            Names = names.ToList();
+            ParametersCount = 1;
         }
+
+        public static Option Create(string[] names, string helpText, Action action)
+        {
+            if (!AreValidOptionNames(names)) {
+                throw new ArgumentException("Invalid option names:" + String.Join(", ", names));
+            }
+            return new Option(names, helpText, action);
+        }
+
+        #endregion
+
+        #region Public methods
+
+        public void HandleOption(List<string> arguments, OptionParser.State parserState)
+        {
+            Action.Execute(arguments, parserState);
+        }
+
+        #endregion
+
+        #region Public properties
 
         public List<string> Names
         {
-            get {
+            get
+            {
                 // TODO: return a copy or unmodifiable variant
                 return names_;
             }
+            private set { names_ = value; }
         }
 
-        public Action Action
-        {
-            get {return action_; }
-        }
+        public Action Action { get; private set; }
 
         public bool Required { get; set; } // TODO: default: false
-        
+
         public bool ParametersRequired { get; set; } // TODO: default: false
 
         public int ParametersCount { get; set; } // TODO: [0;1], default: 1
 
-        public string HelpText
-        {
-            get { return helpText_; }
-        }
+        public string HelpText { get; private set; }
 
-        public string MetaVariable {
-            get {
-                if (metaVariable_ == null) {
-                    metaVariable_ = GetDefaultMetaVariable();
+        public string MetaVariable
+        {
+            get
+            {
+                if (metaVariable_ == null)
+                {
+                    metaVariable_ = GetDefaultMetaVariableName();
                 }
                 return metaVariable_;
             }
-            set {
+            set
+            {
                 metaVariable_ = value;
             }
         }
 
-        private string GetDefaultMetaVariable() {
+        #endregion
+
+        #region Private methods
+
+        private string GetDefaultMetaVariableName()
+        {
             // TODO: compute from Names
             // - get the first short or long option name
             // - change it somehow:
@@ -58,13 +91,27 @@ namespace dppopt
             return "";
         }
 
-        public void HandleOption(List<string> arguments, OptionParser parser) {
-            Action.Execute(arguments, parser);
+        private static bool IsValidShortOptionName(string name) {
+            return Regex.IsMatch(name, @"-[a-zA-Z]");
         }
 
-        Action action_;
-        List<string> names_;
-        string helpText_;
-        string metaVariable_ = null;
+        private static bool IsValidLongOptionName(string name)
+        {
+            return Regex.IsMatch(name, @"--[a-zA-Z]+");
+        }
+
+        private static bool AreValidOptionNames(string[] names)
+        {
+            return names.All(name => IsValidShortOptionName(name) || IsValidShortOptionName(name));
+        }
+
+        #endregion
+
+        #region Private fields
+        
+        private List<string> names_;
+        private string metaVariable_ = null;
+        
+        #endregion
     }
 }

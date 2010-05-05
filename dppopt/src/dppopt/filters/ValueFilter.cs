@@ -8,7 +8,5 @@ namespace dppopt
     public interface ValueFilter<ValueType>
     {
         bool IsValid(ValueType value);
-
-        // TODO: getInstance() - singleton
     }
 }

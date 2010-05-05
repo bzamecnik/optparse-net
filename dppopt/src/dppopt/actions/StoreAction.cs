@@ -7,10 +7,16 @@ namespace dppopt
 {
     public sealed class StoreAction<ValueType> : StorageAction<ValueType>
     {
+        #region Construction
+
         public StoreAction(OptionValue<ValueType> destination)
             : base(destination) { }
 
-        public override void Execute(List<string> arguments, OptionParser parser)
+        #endregion
+
+        #region Public methods
+
+        public override void Execute(List<string> arguments, OptionParser.State parserState)
         {
             if (arguments.Count > 0)
             {
@@ -18,5 +24,7 @@ namespace dppopt
                 Destination.Value = parsedArgument;
             }
         }
+
+        #endregion
     }
 }

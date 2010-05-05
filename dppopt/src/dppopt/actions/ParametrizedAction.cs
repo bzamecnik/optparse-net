@@ -7,22 +7,12 @@ namespace dppopt
 {
     public abstract class ParametrizedAction<ValueType> : Action
     {
-        public abstract void Execute(List<string> arguments, OptionParser parser);
+        #region Public methods
 
-        public ValueFilter<ValueType> Filter { get; set; }
+        public abstract void Execute(List<string> arguments, OptionParser.State parserState);
 
-        public ArgumentParser<ValueType> ParameterParser
+        public ValueType ParseArgument(string argument)
         {
-            get {
-                if (parameterParser_ == null) {
-                    parameterParser_ = ArgumentParserFactory.GetParser<ValueType>();
-                }
-                return parameterParser_;
-            }
-            set { parameterParser_ = value; }
-        }
-
-        public ValueType ParseArgument(string argument) {
             // TODO
 
             // ValueType parsedArgument = ... parse argument according to its type ...
@@ -39,8 +29,33 @@ namespace dppopt
             return new List<ValueType>();
         }
 
+        #endregion
+
+        #region Public properties
+
+        public ValueFilter<ValueType> Filter { get; set; }
+
+        public ArgumentParser<ValueType> ParameterParser
+        {
+            get
+            {
+                if (parameterParser_ == null)
+                {
+                    parameterParser_ = ArgumentParserFactory.GetParser<ValueType>();
+                }
+                return parameterParser_;
+            }
+            set { parameterParser_ = value; }
+        }
+
+        #endregion
+
+        #region Private fields
+
         // TODO: this might throw an InvalidArgumentParserException
         // Probably use a factory method for actions.
         private ArgumentParser<ValueType> parameterParser_;
+
+        #endregion
     }
 }

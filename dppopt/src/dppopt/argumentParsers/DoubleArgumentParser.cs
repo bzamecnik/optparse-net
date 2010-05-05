@@ -7,6 +7,8 @@ namespace dppopt
 {
     public class DoubleArgumentParser : ArgumentParser<double>
     {
+        #region Public methods
+
         public double ParseArgument(string argument)
         {
             double value;
@@ -24,5 +26,7 @@ namespace dppopt
             }
             return value;
         }
+
+        #endregion
     }
 }

@@ -7,9 +7,13 @@ namespace dppopt
 {
     public class StringArgumentParser : ArgumentParser<string>
     {
+        #region Public methods
+
         public string ParseArgument(string argument)
         {
             return argument;
         }
+
+        #endregion
     }
 }

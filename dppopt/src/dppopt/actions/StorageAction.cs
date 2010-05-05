@@ -7,14 +7,28 @@ namespace dppopt
 {
     public abstract class StorageAction<ValueType> : ParametrizedAction<ValueType>
     {
-        protected StorageAction(OptionValue<ValueType> destination) {
+        #region Construction
+
+        protected StorageAction(OptionValue<ValueType> destination)
+        {
             destination_ = destination;
         }
 
-        public OptionValue<ValueType> Destination {
-            get {return destination_; }
+        #endregion
+
+        #region Public properties
+
+        public OptionValue<ValueType> Destination
+        {
+            get { return destination_; }
         }
 
+        #endregion
+
+        #region Private fields
+
         private OptionValue<ValueType> destination_;
+
+        #endregion
     }
 }
