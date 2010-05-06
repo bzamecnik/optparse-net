@@ -10,13 +10,10 @@ namespace dppopt
     {
         #region Construction
 
-        public ChoiceValueFilter(ISet<ValueType> choices)
-        {
-            choices_ = choices;
-        }
-
         public ChoiceValueFilter(ValueType[] choices)
-            : this(new HashSet<ValueType>(choices)) { }
+        {
+            choices_ = new HashSet<ValueType>(choices);
+        }
 
         #endregion
 
@@ -31,7 +28,7 @@ namespace dppopt
 
         #region Private fields
 
-        private ISet<ValueType> choices_;
+        private HashSet<ValueType> choices_;
 
         #endregion
     }

@@ -19,7 +19,7 @@ namespace dppopt
             writer.WriteLine("Options:");
             foreach (Option option in options)
             {
-                writer.WriteLine("  {0} {1}", String.Join(", ", option.Names), option.HelpText);
+                writer.WriteLine("  {0} {1}", String.Join(", ", option.Names.ToArray()), option.HelpText);
             }
         }
 
