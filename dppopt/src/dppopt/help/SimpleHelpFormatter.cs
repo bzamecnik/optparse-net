@@ -5,15 +5,26 @@ using System.Text;
 
 namespace dppopt
 {
+    /// <summary>
+    /// A simple help formatter without any sofisticated indentation or line wrapping.
+    /// </summary>
     public class SimpleHelpFormatter : HelpFormatter
     {
         #region Public methods
 
         #region Interface HelpFormatter
 
-        public void FormatHelp(System.IO.TextWriter writer, List<Option> options, OptionParser.ProgramInformation programInfo)
+        /// <summary>
+        /// Format help about using options to an output stream.
+        /// Write a general usage pattern and a description of each option
+        /// (<see cref="Option.Names"/>, <see cref="Option.HelpText"/>
+        /// </summary>
+        /// <param name="writer">output stream</param>
+        /// <param name="options">information about the options</param>
+        /// <param name="programInfo">information about the program</param>
+        public void FormatHelp(System.IO.TextWriter writer, IList<Option> options, OptionParser.ProgramInformation programInfo)
         {
-            string usageLine = String.Format(programInfo.Usage, programInfo.Name);
+            string usageLine = String.Format(programInfo.UsageFormat, programInfo.Name);
             writer.WriteLine("Usage: {0}", usageLine);
             writer.WriteLine();
             writer.WriteLine("Options:");

@@ -21,40 +21,36 @@ namespace dppopt
             }
             Action = action;
             HelpText = helpText;
-            Names = names.ToList();
+            Names = names;
             ParametersCount = 1;
+            ParametersRequired = false;
+            Required = false;
         }
 
         #endregion
 
         #region Public methods
 
-        public void HandleOption(List<string> arguments, OptionParser.State parserState)
+        public void HandleOption(IList<string> parameters, OptionParser.State parserState)
         {
-            Action.Execute(arguments, parserState);
+            Action.Execute(parameters, parserState);
         }
 
         #endregion
 
         #region Public properties
 
-        public List<string> Names
+        public IList<string> Names
         {
-            get
-            {
-                // TODO: return a copy or unmodifiable variant
-                return names_;
-            }
-            private set { names_ = value; }
+            // Possibly: return names_.AsReadOnly()
+            // But this would disallow a scenario of intelligent handler
+            // to resolve a duplicity when defining an option by removing the
+            // colliding names.
+            get { return names_; }
+            private set { names_ = value.ToList(); }
         }
 
         public Action Action { get; private set; }
-
-        public bool Required { get; set; } // TODO: default: false
-
-        public bool ParametersRequired { get; set; } // TODO: default: false
-
-        public int ParametersCount { get; set; } // TODO: [0;1], default: 1
 
         public string HelpText { get; private set; }
 
@@ -74,17 +70,38 @@ namespace dppopt
             }
         }
 
+        public bool ParametersRequired { get; set; }
+
+        public int ParametersCount
+        {
+            get { return parametersCount_; }
+            set {
+                if ((value < 0) || (value > 1)) {
+                    throw new ArgumentException("Invalid number of parameters (allowed range: [0; 1])");
+                }
+                parametersCount_ = value;
+            }
+        }
+
+        public bool Required { get; set; }
+
         #endregion
 
         #region Private methods
 
         private string GetDefaultMetaVariableName()
         {
-            // TODO: compute from Names
-            // - get the first short or long option name
-            // - change it somehow:
-            //   - example: --my-version -> MY_VERSION
-            return "";
+            string metaVar = Names.FirstOrDefault(name => IsValidLongOptionName(name));
+            if (metaVar.Length == 0) {
+                metaVar = Names.FirstOrDefault(name => IsValidShortOptionName(name));
+            }
+            if (metaVar.Length == 0)
+            {
+                metaVar = "VAR";
+            }
+            metaVar = Regex.Replace(metaVar.ToUpper(), @"^--?", "");
+            metaVar = Regex.Replace(metaVar, @"-", "_");
+            return metaVar;
         }
 
         private static bool IsValidShortOptionName(string name) {
@@ -93,7 +110,7 @@ namespace dppopt
 
         private static bool IsValidLongOptionName(string name)
         {
-            return Regex.IsMatch(name, @"--[a-zA-Z]+");
+            return Regex.IsMatch(name, @"--[a-zA-Z]*");
         }
 
         private static bool AreValidOptionNames(string[] names)
@@ -107,6 +124,7 @@ namespace dppopt
         
         private List<string> names_;
         private string metaVariable_ = null;
+        int parametersCount_ = 1;
         
         #endregion
     }

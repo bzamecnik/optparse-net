@@ -9,31 +9,26 @@ namespace dppopt
     {
         #region Public methods
 
-        public abstract void Execute(List<string> arguments, OptionParser.State parserState);
+        public abstract void Execute(IList<string> parameters, OptionParser.State parserState);
 
         public ValueType ParseArgument(string argument)
         {
-            // TODO
-
-            // ValueType parsedArgument = ... parse argument according to its type ...
-            //if (!Filter.IsValid(parsedArgument)) {
-            //    throw ParseException("Invalid argument: ...");
-            //}
-
-            return default(ValueType);
-        }
-
-        public List<ValueType> ParseArguments(List<string> arguments)
-        {
-            // TODO
-            return new List<ValueType>();
+            ValueType parsedArgument = ParameterParser.ParseArgument(argument);
+            if (!Filter.IsValid(parsedArgument)) {
+                throw new ParseException("Argument does not conform to the filter: " + argument);
+            }
+            return parsedArgument;
         }
 
         #endregion
 
         #region Public properties
 
-        public ValueFilter<ValueType> Filter { get; set; }
+        public ValueFilter<ValueType> Filter
+        {
+            get { return filter_; }
+            set { filter_ = value; }
+        }
 
         public ArgumentParser<ValueType> ParameterParser
         {
@@ -41,6 +36,11 @@ namespace dppopt
             {
                 if (parameterParser_ == null)
                 {
+                    // Note: This might throw an InvalidArgumentParserException.
+                    // TODO: It would be better to initialize the parser in the
+                    // constructor and throw that exception from there
+                    // (in definition time, not in parsing time).
+                    // Or the exception could be thrown from ParseArgument()
                     parameterParser_ = ArgumentParserFactory.GetParser<ValueType>();
                 }
                 return parameterParser_;
@@ -52,9 +52,8 @@ namespace dppopt
 
         #region Private fields
 
-        // TODO: this might throw an InvalidArgumentParserException
-        // Probably use a factory method for actions.
         private ArgumentParser<ValueType> parameterParser_;
+        private ValueFilter<ValueType> filter_ = new EmptyValueFilter<ValueType>();
 
         #endregion
     }

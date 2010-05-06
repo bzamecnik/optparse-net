@@ -18,9 +18,9 @@ namespace dppopt
 
         #region Public methods
 
-        public void Execute(List<string> arguments, OptionParser.State parserState)
+        public void Execute(IList<string> parameters, OptionParser.State parserState)
         {
-            // ignore arguments
+            // Note: the argument is ignored
             callback_(parserState);
         }
 

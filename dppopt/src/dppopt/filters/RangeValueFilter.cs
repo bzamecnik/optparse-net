@@ -16,7 +16,7 @@ namespace dppopt
             if (maxHasValue_ && (value.CompareTo(Max) > 0)) return false;
             return true;
 
-            // TODO: possibly better code (test it!)
+            // TODO: possibly a better code (test it!)
             //bool lessThanMin = minHasValue_ && (value.CompareTo(Min) < 0);
             //bool moreThanMax = maxHasValue_ && (value.CompareTo(Max) > 0);
             //return lessThanMin || moreThanMax || true;

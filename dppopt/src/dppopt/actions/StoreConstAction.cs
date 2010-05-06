@@ -19,7 +19,7 @@ namespace dppopt
 
         #region Public methods
 
-        public override void Execute(List<string> arguments, OptionParser.State parserState)
+        public override void Execute(IList<string> parameters, OptionParser.State parserState)
         {
             Destination.Value = constant_;
         }
