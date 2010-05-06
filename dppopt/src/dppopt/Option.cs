@@ -13,20 +13,16 @@ namespace dppopt
     {
         #region Construction
 
-        private Option(string[] names, string helpText, Action action)
+        public Option(string[] names, string helpText, Action action)
         {
+            if (!AreValidOptionNames(names))
+            {
+                throw new ArgumentException("Invalid option names:" + String.Join(", ", names));
+            }
             Action = action;
             HelpText = helpText;
             Names = names.ToList();
             ParametersCount = 1;
-        }
-
-        public static Option Create(string[] names, string helpText, Action action)
-        {
-            if (!AreValidOptionNames(names)) {
-                throw new ArgumentException("Invalid option names:" + String.Join(", ", names));
-            }
-            return new Option(names, helpText, action);
         }
 
         #endregion

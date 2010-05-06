@@ -11,23 +11,14 @@ namespace dppopt
 
         protected StorageAction(OptionValue<ValueType> destination)
         {
-            destination_ = destination;
+            Destination = destination;
         }
 
         #endregion
 
         #region Public properties
 
-        public OptionValue<ValueType> Destination
-        {
-            get { return destination_; }
-        }
-
-        #endregion
-
-        #region Private fields
-
-        private OptionValue<ValueType> destination_;
+        public OptionValue<ValueType> Destination { get; protected set; }
 
         #endregion
     }

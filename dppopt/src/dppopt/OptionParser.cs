@@ -131,7 +131,7 @@ namespace dppopt
         private void AddDefaultOptions()
         {
             AddOption(
-                Option.Create(new string[] { "--" }, "Terminate the option list.",
+                new Option(new string[] { "--" }, "Terminate the option list.",
                     new SimpleCallbackAction((OptionParser.State parserState) =>
                     {
                         parserState.ContinueParsing = false;
@@ -141,7 +141,7 @@ namespace dppopt
 
             // TODO: support enabling/disabling this option
             AddOption(
-                Option.Create(new string[] { "-h", "--help" },
+                new Option(new string[] { "-h", "--help" },
                     "Print help about program options",
                     new SimpleCallbackAction((OptionParser.State parserState) =>
                     {
@@ -153,7 +153,7 @@ namespace dppopt
 
             // TODO: support enabling/disabling this option
             AddOption(
-                Option.Create(new string[] { "-v", "--version" }, "Print program version.",
+                new Option(new string[] { "-v", "--version" }, "Print program version.",
                     new SimpleCallbackAction((OptionParser.State parserState) =>
                     {
                         parserState.Parser.PrintVersionInfo(Console.Out);
