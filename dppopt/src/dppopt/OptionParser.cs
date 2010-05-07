@@ -5,6 +5,8 @@ using System.Text;
 
 namespace dppopt
 {
+    // TODO: mohlo by se jmenovat spis CommandLineParser
+
     /// <summary>
     /// The command line option parser processes the list of command line arguments
     /// taking actions for encountered predefined options.
@@ -19,7 +21,10 @@ namespace dppopt
 
         public OptionParser()
         {
+            helpFormatter_ = new SimpleHelpFormatter();
             programInfo_ = new ProgramInformation(this);
+            UseDefaultHelpOption = true;
+            UseDefaultVersionOption = true;
             AddDefaultOptions();
         }
 
@@ -74,6 +79,8 @@ namespace dppopt
         #region Public properties
 
         public ProgramInformation ProgramInfo { get { return programInfo_; } }
+        public bool UseDefaultHelpOption { get; set; }
+        public bool UseDefaultVersionOption { get; set; }
 
         public HelpFormatter HelpFormatter
         {
@@ -148,28 +155,33 @@ namespace dppopt
                 )
             );
 
-            // TODO: support enabling/disabling this option
-            AddOption(
-                new Option(new string[] { "-h", "--help" },
-                    "Print the help on program options.",
-                    new SimpleCallbackAction((OptionParser.State parserState) =>
+            if (UseDefaultHelpOption)
+            {
+                Action callback = new SimpleCallbackAction(
+                    (OptionParser.State parserState) =>
                     {
                         parserState.Parser.ProgramInfo.PrintHelp(Console.Out);
                         parserState.Parser.Exit();
-                    })
-                )
-            );
+                    });
+                AddOption(new Option(
+                        new string[] { "-h", "--help" },
+                        "Print the help on program options.",
+                        callback)
+                    );
+            }
 
-            // TODO: support enabling/disabling this option
-            AddOption(
-                new Option(new string[] { "-v", "--version" }, "Print the program version.",
-                    new SimpleCallbackAction((OptionParser.State parserState) =>
+            if (UseDefaultVersionOption)
+            {
+                Action callback = new SimpleCallbackAction(
+                    (OptionParser.State parserState) =>
                     {
                         parserState.Parser.ProgramInfo.PrintVersionInfo(Console.Out);
                         parserState.Parser.Exit();
-                    })
-                )
-            );
+                    });
+                AddOption(new Option(new string[] { "-v", "--version" },
+                        "Print the program version.", callback) { Required = true }
+                    );
+            }
         }
 
         #endregion
@@ -177,7 +189,7 @@ namespace dppopt
         #region Private fields
 
         private Options options_ = new Options();
-        private HelpFormatter helpFormatter_ = new SimpleHelpFormatter();
+        private HelpFormatter helpFormatter_;
         private ProgramInformation programInfo_;
 
         #endregion

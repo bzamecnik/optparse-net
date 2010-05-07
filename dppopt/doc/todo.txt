@@ -1,0 +1,14 @@
+- vyøešit samotné parsovaní vstupních argumentù
+
+- poøádnì napsat znìní výjimek a jejich handlování
+
+- ArgumentParserFactory by se nemìla používat staticky
+	- její instance by mìla být v OptionsParseru
+	- ArgumentParserFactory.GetParser se používá pro ParametrizedAction.ParameterParser
+
+- zpracovat dokumentaci
+	- komentáøe ke kódu
+	- rozhchodit doxygen
+	- další stránky do doxygenu
+		- architektura
+		- tutoriál s pøíklady
