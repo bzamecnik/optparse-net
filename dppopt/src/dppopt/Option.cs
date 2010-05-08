@@ -198,7 +198,7 @@ namespace dppopt
         {
             return (names.Length >= 1) && (names.All(name =>
                     IsValidShortOptionName(name) ||
-                    IsValidShortOptionName(name))
+                    IsValidLongOptionName(name))
                 );
         }
 
