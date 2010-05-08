@@ -95,7 +95,7 @@ namespace dppopt
         /// The text may contain a meta variable name to represent the option
         /// parameter.
         /// </remarks>
-        /// <see>MetaVariable</see>
+        /// <see cref="MetaVariable" />
         public string HelpText { get; private set; }
 
         /// <summary>

@@ -1,0 +1,15 @@
+===== Pozadavky =====
+
+- Microsoft .NET Framework 3.5
+
+- Windows SDK for Windows Server 2008 and .NET Framework 3.5
+	- http://www.microsoft.com/downloads/details.aspx?FamilyID=E6E1C3DF-A74F-4207-8586-711EBE331CDC&displaylang=en
+	- neni treba instalovat dokumentaci a ukazky -> 50MB  
+
+
+===== Build =====
+
+- Build pomoci MSBuild
+C:\windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe src\dppopt\dppopt.csproj
+
+nant -D:msbuild.version=v4.0.30319
