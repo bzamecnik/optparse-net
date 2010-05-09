@@ -6,8 +6,29 @@
 	- její instance by mìla být v OptionsParseru
 	- ArgumentParserFactory.GetParser se používá pro ParametrizedAction.ParameterParser
 
+- pøejmenovat
+	- interfaces
+		- ArgumentParser -> IArgumentParser
+		- ValueFilter -> IValueFilter
+		- Action -> IAction
+		- HelpFormatter -> IHelpFormatter
+	- tøídy
+		- RangeValueFilter -> IntervalValueFilter
+		- IntArgumentParser -> Int32ArgumentParser
+		- OptionParser -> CommandLineParser
+		- ArgumentParserFactory -> ArgumentParserRegistry
+
+- OptionParser.Exit() - exitting strategy
+
 - zpracovat dokumentaci
 	- komentáøe ke kódu
+		- InvalidArgumentParserException
+		- ArgumentParserFactory
+		- OptionParser
+			- OptionParser.ProgramInformation
+			- OptionParser.State
+			- OptionParser.Options
+		- Option
 	- dokumentace pøes Sandcastle
 	- další soubory
 		- architektura - doc/architecture.txt

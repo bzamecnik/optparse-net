@@ -5,13 +5,11 @@ using System.Text;
 
 namespace dppopt
 {
-    // TODO: rename: IntArgumentParser -> Int32ArgumentParser
-
     /// <summary>
     /// Represents a parser which converts the string representation of a
     /// number to its 32-bit signed integer equivalent.
     /// </summary>
-    public class IntArgumentParser : ArgumentParser<int>
+    public class Int32ArgumentParser : ArgumentParser<int>
     {
         #region Public methods
 
@@ -41,11 +39,11 @@ namespace dppopt
             }
             catch (FormatException ex)
             {
-                throw new FormatException("IntArgumentParser: Invalid argument format: " + argument, ex);
+                throw new FormatException("Int32ArgumentParser: Invalid argument format: " + argument, ex);
             }
             catch (OverflowException ex)
             {
-                throw new FormatException("IntArgumentParser: Overflow: " + argument, ex);
+                throw new FormatException("Int32ArgumentParser: Overflow: " + argument, ex);
             }
             return value;
         }
