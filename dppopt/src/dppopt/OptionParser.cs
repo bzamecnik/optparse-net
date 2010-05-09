@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
+
 
 namespace dppopt
 {
@@ -40,7 +42,7 @@ namespace dppopt
         public IList<string> ParseArguments(string[] arguments)
         {
             List<string> remainingArguments = new List<string>(arguments);
-            State parsingState = new State(this);
+            State parserState = new State(this);
 
             // do parsing stuff ...
 
@@ -50,27 +52,94 @@ namespace dppopt
             // probably even like this:
             //   -n42
             // to do that preprocess the input arguments list or handle it in the main loop
+            bool isParsingStopped = false;
 
             // while (there are any remaining input arguments) and (parsing should not be stopped)
-            //    if the next input argument starts like an option
-            //        fetch the argument
-            //        identify the option
-            //            error if the option is unknown or somehow bad
-            //        delete the option from the remaining input arguments list
-            //        get the number of parameters it might take
-            //        if there is any parameter immediately after the option in the same argument
-            //            store it as the option parameter
-            //        if there is not a valid number of parameters after the option
-            //            if the option should take some parameters and there are any in the input list
-            //                fetch one argument and delete it from the list
-            //                store it as the option parameter
-            //            else
-            //                error
-            //        process the option, give it the parameters
-            //    else (ie. argument is not an option)
-            //        parsing should be stopped
+            while (remainingArguments.Count() > 0 && isParsingStopped == true)
+            {
+                string name = remainingArguments.First();
+                string parameter;
+
+                /*
+                // handle parameters like:
+                //   --number=42
+                string pattern = @"(--[a-zA-Z0-9-]+)=(.*)";
+                if (Regex.IsMatch(name, pattern))
+                {
+                    Match match = Regex.Match(name, pattern);
+                    name = match.Groups[1].Value;
+                    parameter = match.Groups[2].Value;
+                }
+                else if ()
+                {
+                
+                }
+                //*/
+
+                //    if the next input argument starts like an option
+                if (Option.IsValidOptionName(name))
+                {
+                    //        fetch the argument
+                    //        identify the option
+                    Option option;
+                    if (!options_.HasOption(name))
+                    {
+                        //        error if the option is unknown or somehow bad
+                        throw new ArgumentException("Invalid option name:" + name);
+                    }
+                    option = options_.GetOption(name);
+                    //        delete the option from the remaining input arguments list
+                    remainingArguments.Remove(name);
+
+                    //        get the number of parameters it might take
+                    //DEPRECATED
+
+                    //        if there is any parameter immediately after the option in the same argument
+                    //            store it as the option parameter
+                    //TODO - how to?
+
+                    //        if there is not a valid number of parameters after the option
+                    //DEPRECATED
+
+
+                    //            if the option should take some parameters and there are any in the input list
+                    List<string> parameters = new List<string>();
+
+                    if (option.ParametersCount > 0 && remainingArguments.Count() > 0)
+                    {
+                        //                fetch one argument and delete it from the list
+                        parameter = remainingArguments.First();
+
+                        if (!options_.HasOption(parameter))
+                        {
+                            remainingArguments.Remove(parameter);
+                            parameters.Add(parameter);
+
+                            //                store it as the option parameter
+                            option.Action.Execute(parameters, parserState);
+                        }
+                        else if (option.ParametersRequired)
+                        {
+                            //                error
+                            throw new ArgumentException("Option: " + name + ", missing reqired parametr");
+                        }
+                    }
+
+                    
+                    //            else
+                    //        process the option, give it the parameters
+                }
+                //    else (ie. argument is not an option)
+                else
+                {
+                    //        parsing should be stopped
+                    isParsingStopped = true;
+                }
+            }
             // return the rest
 
+
+            //TODO kontrola povinnzch voleb
             return remainingArguments;
         }
 

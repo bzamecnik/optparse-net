@@ -50,7 +50,9 @@ namespace dppopt
         /// </exception>
         public Option(string[] names, string helpText, Action action)
         {
-            if (!AreValidOptionNames(names))
+            if (!(names.Length >= 1) && (names.All(name =>
+                    IsValidOptionName(name)))
+                )
             {
                 throw new ArgumentException("Invalid option names:" + String.Join(", ", names));
             }
@@ -194,11 +196,10 @@ namespace dppopt
             return Regex.IsMatch(name, @"--[a-zA-Z0-9-]*");
         }
 
-        private static bool AreValidOptionNames(string[] names)
+        public static bool IsValidOptionName(string name)
         {
-            return (names.Length >= 1) && (names.All(name =>
-                    IsValidShortOptionName(name) ||
-                    IsValidLongOptionName(name))
+            return (IsValidShortOptionName(name) ||
+                    IsValidLongOptionName(name)
                 );
         }
 
