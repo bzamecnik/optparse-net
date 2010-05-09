@@ -8,7 +8,14 @@
 
 - zpracovat dokumentaci
 	- komentáøe ke kódu
-	- rozhchodit doxygen
-	- další stránky do doxygenu
-		- architektura
-		- tutoriál s pøíklady
+	- dokumentace pøes Sandcastle
+	- další soubory
+		- architektura - doc/architecture.txt
+		- tutoriál s pøíklady - doc/use-cases.txt nebo spíš doc/examples.txt
+
+- sestavit balíèek
+	- zdrojáky
+		- exportovat zdrojáky ze SVN
+		- zabalit
+	- programátorská dokumentace
+		- sestavit dokumentaci pøes Sandsastle + Sandsastle Help File Builder 
