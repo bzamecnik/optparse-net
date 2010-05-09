@@ -30,7 +30,7 @@ namespace dppopt
         /// <exception cref="ArgumentNullException">
         /// <c>argument</c> is null
         /// </exception>
-        /// <seealso cref="Double.Parse"/>
+        /// <seealso cref="Double.Parse(string)"/>
         public double ParseArgument(string argument)
         {
             double value;

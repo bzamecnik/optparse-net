@@ -16,7 +16,7 @@ namespace dppopt
         #region Interface HelpFormatter
 
         /// <summary>
-        /// Format help about using options to an output stream.
+        /// Formats a help message about using options to an output stream.
         /// Write a general usage pattern and a description of each option
         /// (<see cref="Option.Names"/>, <see cref="Option.HelpText"/>
         /// </summary>
@@ -41,6 +41,12 @@ namespace dppopt
             }
         }
 
+
+        /// <summary>
+        /// Formats program version string to an output stream.
+        /// </summary>
+        /// <param name="writer">The output writer.</param>
+        /// <param name="programInfo">The information about the program.</param>
         public void FormatVersion(
             System.IO.TextWriter writer,
             OptionParser.ProgramInformation programInfo)

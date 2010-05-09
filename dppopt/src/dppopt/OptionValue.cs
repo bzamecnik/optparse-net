@@ -14,8 +14,7 @@ namespace dppopt
     /// the type of the option's parameter. If the associated option did not
     /// occured in the input argument list (and thus could not stor any value
     /// here) and its parameter was not defined as required a default value
-    /// (either implicit or user defined) remains in the
-    /// <see cref="OptionValue" />.
+    /// (either implicit or user defined) remains in the <c>OptionValue</c>.
     /// </remarks>
     /// <typeparam name="ValueType">Specifies the type of the value.
     /// </typeparam>

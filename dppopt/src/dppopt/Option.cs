@@ -201,15 +201,31 @@ namespace dppopt
         /// </summary>
         public sealed class RegularExpressions
         {
+            /// <summary>
+            /// Gets the regular expression to match a short option without
+            /// any parameters.
+            /// </summary>
             public static string ShortOption 
                 { get { return @"-[a-zA-Z]"; } }
 
+            /// <summary>
+            /// Gets the regular expression to match a short option with
+            /// a single parameter adjacent to the option.
+            /// </summary>
             public static string ShortOptionWithParam 
                 { get { return "(" + ShortOption + ")(.*)"; } }
 
+            /// <summary>
+            /// Gets the regular expression to match a long option without
+            /// any parameters.
+            /// </summary>
             public static string LongOption 
                 { get { return @"--[a-zA-Z0-9-]*"; } }
 
+            /// <summary>
+            /// Gets the regular expression to match a long option with
+            /// a single parameter adjacent to the option.
+            /// </summary>
             public static string LongOptionWithParam 
                 { get { return @"(--[a-zA-Z0-9-]+)=(.*)"; } }
         }

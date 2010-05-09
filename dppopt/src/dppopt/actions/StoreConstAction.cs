@@ -24,6 +24,7 @@ namespace dppopt
         /// <param name="destination">
         /// The destination where to store the option parameter value.
         /// </param>
+        /// <param name="constant">The constant to store to the destination.</param>
         public StoreConstAction(OptionValue<ValueType> destination, ValueType constant)
             : base(destination)
         {

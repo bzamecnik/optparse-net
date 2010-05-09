@@ -18,8 +18,8 @@ namespace dppopt
     {
         #region Construction
 
-        // <summary>
-        /// Initializes a new instance of <see cref="CallbackAction"/>
+        /// <summary>
+        /// Initializes a new instance of <see cref="CallbackAction&lt;ValueType&gt;"/>
         /// class with the specified callback function.
         /// </summary>
         /// <param name="callback">The callback function to be called.</param>

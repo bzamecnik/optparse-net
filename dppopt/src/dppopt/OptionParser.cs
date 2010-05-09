@@ -219,7 +219,8 @@ namespace dppopt
 
         /// <summary>
         /// Represents the information about the program such as its name or
-        /// version.
+        /// version and facilitates printing some help messages about the
+        /// program usage.
         /// </summary>
         public sealed class ProgramInformation
         {
@@ -237,28 +238,66 @@ namespace dppopt
                 parser_ = parser;
             }
 
+            /// <summary>
+            /// Prints the compiled help message about program usage and its
+            /// command line options to the specified output writer.
+            /// </summary>
+            /// <param name="writer">The output writer.</param>
             public void PrintHelp(System.IO.TextWriter writer)
             {
                 parser_.HelpFormatter.FormatHelp(writer, parser_.options_.ToList(),
                     parser_.ProgramInfo);
             }
 
+            /// <summary>
+            /// Prints the message about program version to the specified
+            /// output writer.
+            /// </summary>
+            /// <param name="writer">The output writer.</param>
             public void PrintVersionInfo(System.IO.TextWriter writer)
             {
                 parser_.HelpFormatter.FormatVersion(writer, parser_.ProgramInfo);
             }
 
+            /// <summary>
+            /// Represents the program name.
+            /// </summary>
             public string Name { get; set; }
+
+            /// <summary>
+            /// Represents the program version.
+            /// </summary>
             public string Version { get; set; }
+
+            /// <summary>
+            /// Represents the format of the usage line as recognized by
+            /// <c>String.Format</c>.
+            /// </summary>
+            /// <remarks>The "{0}" will be replaced by the program
+            /// <see cref="Name"/>
+            /// </remarks>
+            /// <example>"{0} [options] MORE_ARGUMENTS"</example>
             public string UsageFormat { get; set; }
 
+            /// <summary>
+            /// The reference to the option parser.
+            /// </summary>
             private OptionParser parser_;
         }
 
+        /// <summary>
+        /// Represents the current state of a parsing by the
+        /// of the <c>ParseArguments()</c> method.
+        /// </summary>
         public sealed class State
         {
             #region Construction
 
+            /// <summary>
+            /// Initializes the <see cref="State"/> class with a refence to the
+            /// option parse.
+            /// </summary>
+            /// <param name="parser"></param>
             public State(OptionParser parser)
             {
                 Parser = parser;
@@ -269,13 +308,26 @@ namespace dppopt
 
             #region Public methods
 
+            /// <summary>
+            /// Returns the default argument parser for the specified type.
+            /// </summary>
+            /// <typeparam name="ValueType">The type of argument parser output.
+            /// </typeparam>
+            /// <returns>A default argument parser for the specified type.</returns>
             public ArgumentParser<ValueType> GetDefaultArgumentParser<ValueType>()
             {
                 return argumentParserRegistry_.GetParser<ValueType>();
             }
 
+            /// <summary>
+            /// Exits the parser and optionally the whole program with the
+            /// specified exit code depending on the
+            /// <see cref="OptionParser.ProgramExitEnabled"/> flag.
+            /// </summary>
+            /// <param name="exitCode">The specified exit code.</param>
             public void Exit(int exitCode)
             {
+                ContinueParsing = false;
                 if (Parser.ProgramExitEnabled)
                 {
                     Environment.Exit(exitCode);
@@ -286,11 +338,28 @@ namespace dppopt
 
             #region Public properties
 
-            // set to false -> consider the rest of them as positional arguments
+            // set to false -> 
+            /// <summary>
+            /// Gets or sets the logical value whether to continue the parsing
+            /// process (true) or stop it (false) considering the rest of them
+            /// as positional arguments.
+            /// </summary>
+            /// <remarks>
+            /// In contrast with <c>Exit()</c> method this just indicates
+            /// the parsing process is finished and it does not try to
+            /// exit the whole program.
+            /// </remarks>
             public bool ContinueParsing { get; set; }
 
+            /// <summary>
+            /// Gets the reference to the option parser currently processing
+            /// with this state.
+            /// </summary>
             public OptionParser Parser { get; private set; }
 
+            /// <summary>
+            /// Gets or sets the registry of arguments parsers.
+            /// </summary>
             public ArgumentParserRegistry ArgumentParserRegistry {
                 get {
                     if (argumentParserRegistry_ == null) {
@@ -305,6 +374,11 @@ namespace dppopt
 
             #region Private methods
 
+            /// <summary>
+            /// Creates an instance of <see cref="ArgumentParserRegistry"/> class
+            /// and populate it with some common argument parsers.
+            /// </summary>
+            /// <returns></returns>
             private static ArgumentParserRegistry CreateDefaultArgumentParserRegistry()
             {
                 ArgumentParserRegistry registry = new ArgumentParserRegistry();
@@ -328,6 +402,15 @@ namespace dppopt
 
         #region Private methods
 
+        /// <summary>
+        /// Defines some commonly used options like help, version or
+        /// option terminator "--".
+        /// </summary>
+        /// <remarks>
+        /// Defining a default help option depends on
+        /// <see cref="UseDefaultHelpOption"/>, defining a default version
+        /// option depends on <see cref="UseDefaultVersionOption"/>.
+        /// </remarks>
         private void AddDefaultOptions()
         {
             AddOption(
@@ -438,6 +521,10 @@ namespace dppopt
                 return optionsMap_.Values.ToList();
             }
 
+            /// <summary>
+            /// Represents the mapping between synonymous option names and
+            /// option itself.
+            /// </summary>
             private Dictionary<string, Option> optionsMap_ = new Dictionary<string, Option>();
         }
 

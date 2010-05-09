@@ -75,7 +75,7 @@ namespace dppopt
         /// </summary>
         /// <remarks>
         /// <see cref="object"/> is used as a base class because is
-        /// <c>ArgumentParser&lt;ValueType&gt</c> cannot be a base class.</remarks>
+        /// <c>ArgumentParser&lt;ValueType&gt;</c> cannot be a base class.</remarks>
         private Dictionary<Type, object> knownParsers_ = new Dictionary<Type, object>();
 
         #endregion

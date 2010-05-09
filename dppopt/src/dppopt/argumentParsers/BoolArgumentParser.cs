@@ -2,30 +2,35 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
 namespace dppopt
 {
     /// <summary>
-    /// Converts the string representation of a logical value to its boolean
-    /// equivalent.
+    /// Represents a parser which converts the string representation of a
+    /// logical value to its boolean equivalent.
     /// </summary>
-    /// <param name="argument">A string representing the logical value to
-    /// convert.
-    /// </param>
-    /// <returns>The value of <c>argument</c> as its boolean equivalent.
-    /// </returns>
-    /// <exception cref="FormatException">
-    /// <c>argument</c> is not in correct format
-    /// </exception>
-    /// <exception cref="ArgumentNullException">
-    /// <c>argument</c> is null
-    /// </exception>
-    /// <seealso cref="Boolean.Parse"/>
     public class BoolArgumentParser : ArgumentParser<bool>
     {
         #region Public methods
 
         #region Interface ArgumentParser
 
+        /// <summary>
+        /// Converts the string representation of a logical value to its boolean
+        /// equivalent.
+        /// </summary>
+        /// <param name="argument">A string representing the logical value to
+        /// convert.
+        /// </param>
+        /// <returns>The value of <c>argument</c> as its boolean equivalent.
+        /// </returns>
+        /// <exception cref="FormatException">
+        /// <c>argument</c> is not in correct format
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// <c>argument</c> is null
+        /// </exception>
+        /// <seealso cref="Boolean.Parse"/>
         public bool ParseArgument(string argument)
         {
             bool value;

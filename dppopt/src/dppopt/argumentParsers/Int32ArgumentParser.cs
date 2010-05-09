@@ -29,7 +29,7 @@ namespace dppopt
         /// <exception cref="ArgumentNullException">
         /// <c>argument</c> is null
         /// </exception>
-        /// <seealso cref="Int32.Parse"/>
+        /// <seealso cref="Int32.Parse(string)"/>
         public int ParseArgument(string argument)
         {
             int value;
