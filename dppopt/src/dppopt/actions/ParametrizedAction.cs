@@ -26,7 +26,10 @@ namespace dppopt
         /// </remarks>
         /// <param name="parameters">The list of option parameters.</param>
         /// <param name="parserState">Current state of the option parser.</param>
-        public abstract void Execute(IList<string> parameters, OptionParser.State parserState);
+        public virtual void Execute(IList<string> parameters, OptionParser.State parserState)
+        {
+            EnsureParameterParser(parserState);
+        }
 
         #endregion
 

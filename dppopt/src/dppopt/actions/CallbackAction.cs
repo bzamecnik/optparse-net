@@ -42,6 +42,7 @@ namespace dppopt
         /// </param>
         public override void Execute(IList<string> parameters, OptionParser.State parserState)
         {
+            base.Execute(parameters, parserState);
             callback_(parameters, parserState);
         }
 

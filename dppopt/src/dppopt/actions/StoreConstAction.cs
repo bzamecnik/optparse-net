@@ -45,6 +45,7 @@ namespace dppopt
         /// <param name="parserState">Current state of the option parser.</param>
         public override void Execute(IList<string> parameters, OptionParser.State parserState)
         {
+            base.Execute(parameters, parserState);
             Destination.Value = constant_;
         }
 

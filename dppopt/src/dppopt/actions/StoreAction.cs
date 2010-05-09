@@ -48,6 +48,7 @@ namespace dppopt
         /// any of the <c>parameters</c> is not correct</exception>
         public override void Execute(IList<string> parameters, OptionParser.State parserState)
         {
+            base.Execute(parameters, parserState);
             if (parameters.Count == 1)
             {
                 ValueType parsedArgument = ParseArgument(parameters[0]);
