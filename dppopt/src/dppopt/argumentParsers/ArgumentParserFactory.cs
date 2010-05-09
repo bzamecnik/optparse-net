@@ -9,7 +9,7 @@ namespace dppopt
     {
         #region Public methods
 
-        public static ArgumentParser<ValueType> GetParser<ValueType>()
+        public ArgumentParser<ValueType> GetParser<ValueType>()
         {
             Type valueType = typeof(ValueType);
             if (!knownParsers_.ContainsKey(valueType))
@@ -25,37 +25,16 @@ namespace dppopt
             return parser;
         }
 
-        public static void RegisterParser<ValueType>(ArgumentParser<ValueType> argumentParser)
+        public void RegisterParser<ValueType>(ArgumentParser<ValueType> argumentParser)
         {
-            RegisterParser<ValueType>(knownParsers_, argumentParser);
-        }
-
-        #endregion
-
-        #region Private methods
-
-        private static void RegisterParser<ValueType>(
-            Dictionary<Type, object> knownParsers,
-            ArgumentParser<ValueType> argumentParser)
-        {
-            knownParsers.Add(typeof(ValueType), argumentParser);
-        }
-
-        private static Dictionary<Type, object> RegisterParsers()
-        {
-            Dictionary<Type, object> knownParsers = new Dictionary<Type, object>();
-            RegisterParser<string>(knownParsers, new StringArgumentParser());
-            RegisterParser<int>(knownParsers, new IntArgumentParser());
-            RegisterParser<double>(knownParsers, new DoubleArgumentParser());
-            RegisterParser<bool>(knownParsers, new BoolArgumentParser());
-            return knownParsers;
+            knownParsers_.Add(typeof(ValueType), argumentParser);
         }
 
         #endregion
 
         #region Private fields
 
-        private static Dictionary<Type, object> knownParsers_ = RegisterParsers();
+        private Dictionary<Type, object> knownParsers_ = new Dictionary<Type, object>();
 
         #endregion
     }

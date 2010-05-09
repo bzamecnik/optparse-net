@@ -139,7 +139,7 @@ namespace dppopt
             // return the rest
 
 
-            //TODO kontrola povinnzch voleb
+            //TODO kontrola povinnych voleb
             return remainingArguments;
         }
 
@@ -192,16 +192,62 @@ namespace dppopt
 
         public sealed class State
         {
+            #region Construction
+
             public State(OptionParser parser)
             {
                 Parser = parser;
                 ContinueParsing = true;
             }
 
+            #endregion
+
+            #region Public methods
+
+            public ArgumentParser<ValueType> GetDefaultArgumentParser<ValueType>()
+            {
+                return argumentParserFactory_.GetParser<ValueType>();
+            }
+
+            #endregion
+
+            #region Public properties
+
             // set to false -> consider the rest of them as positional arguments
             public bool ContinueParsing { get; set; }
 
             public OptionParser Parser { get; private set; }
+
+            public ArgumentParserFactory ArgumentParserFactory {
+                get {
+                    if (argumentParserFactory_ == null) {
+                        argumentParserFactory_ = CreateDefaultArgumentParserFactory();
+                    }
+                    return argumentParserFactory_;
+                }
+                set { argumentParserFactory_ = value; }
+            }
+
+            #endregion
+
+            #region Private methods
+
+            private static ArgumentParserFactory CreateDefaultArgumentParserFactory()
+            {
+                ArgumentParserFactory factory = new ArgumentParserFactory();
+                factory.RegisterParser<string>(new StringArgumentParser());
+                factory.RegisterParser<int>(new IntArgumentParser());
+                factory.RegisterParser<double>(new DoubleArgumentParser());
+                factory.RegisterParser<bool>(new BoolArgumentParser());
+                return factory;
+            }
+            #endregion
+
+            #region Private fields
+
+            private ArgumentParserFactory argumentParserFactory_;
+
+            #endregion
         }
 
         #endregion
