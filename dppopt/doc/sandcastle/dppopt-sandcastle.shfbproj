@@ -17,9 +17,11 @@
     <OutputPath>.\Help\</OutputPath>
     <HtmlHelpName>Documentation</HtmlHelpName>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\..\src\dppopt\bin\Release\dppopt.dll" xmlns="" />
+      <DocumentationSource sourceFile="..\..\src\dppopt\dppopt.sln" />
     </DocumentationSources>
     <HelpFileFormat>Website</HelpFileFormat>
+    <HelpTitle>dppopt</HelpTitle>
+    <HeaderText>A Command Line Parser</HeaderText>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in
        order for Visual Studio to perform the build.  The others are optional
