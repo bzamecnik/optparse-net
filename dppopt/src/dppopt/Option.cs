@@ -29,6 +29,7 @@ namespace dppopt
     /// </remarks>
     public sealed class Option
     {
+
         #region Construction
 
         /// <summary>
@@ -175,6 +176,25 @@ namespace dppopt
 
         #endregion
 
+        #region Public inner classes
+
+        public sealed class RegularExpressions
+        {
+            public static string ShortOption 
+            { get { return "-[a-zA-Z]"; } }
+
+            public static string ShortOptionWithParam 
+            { get { return "(" + ShortOption + ")(.*)"; } }
+
+            public static string LongOption 
+            { get { return "--[a-zA-Z0-9-]*"; } }
+
+            public static string LongOptionWithParam 
+            { get { return "(--[a-zA-Z0-9-]+)=(.*)"; } }
+        }
+
+        #endregion
+
         #region Private methods
 
         private string GetDefaultMetaVariableName()
@@ -192,13 +212,14 @@ namespace dppopt
             return metaVar;
         }
 
-        private static bool IsValidShortOptionName(string name) {
-            return Regex.IsMatch(name, @"-[a-zA-Z]");
+        private static bool IsValidShortOptionName(string name)
+        {
+            return Regex.IsMatch(name, @RegularExpressions.ShortOption);
         }
 
         private static bool IsValidLongOptionName(string name)
         {
-            return Regex.IsMatch(name, @"--[a-zA-Z0-9-]*");
+            return Regex.IsMatch(name, @RegularExpressions.LongOption);
         }
 
         public static bool IsValidOptionName(string name)

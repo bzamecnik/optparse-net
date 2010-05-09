@@ -44,40 +44,19 @@ namespace dppopt
             List<string> remainingArguments = new List<string>(arguments);
             State parserState = new State(this);
 
-            /*
-            List<Option> reqiredOptions = new List<Option>();
-            foreach (Option option in options_.ToList())
-            {
-                if (option.Required)
-                {
-                    reqiredOptions.Add(option);
-                }
-            }
-            //*/
+            HashSet<Option> requiredOptions = new HashSet<Option>
+                (options_.ToList().FindAll(option => option.Required));
 
-            HashSet<Option> requiredOptions = new HashSet<Option>(options_.ToList().FindAll(option => option.Required));
-
-
-            //(!(names.Length >= 1) && (names.All(name =>
-            //        IsValidOptionName(name)))
-             //   )
-
-            // TODO: DONE
-            // handle parameters like:
-            //   --number=42
-            // probably even like this:
-            //   -n42
-            // to do that preprocess the input arguments list or handle it in the main loop
-
-            // while (there are any remaining input arguments) and (parsing should not be stopped)
-            while (remainingArguments.Count() > 0 && parserState.ContinueParsing == true)
+            // while (there are any remaining input arguments) 
+            // and (parsing should not be stopped)
+            while (parserState.ContinueParsing && remainingArguments.Count() > 0)
             {
                 string name = remainingArguments.First();
                 string parameter = "";
                 bool parameterAlreadySet = false;
 
-                string patternLong = @"(--[a-zA-Z0-9-]+)=(.*)";
-                string patternShort = @"(-[a-zA-Z])(.*)";
+                string patternLong = @Option.RegularExpressions.LongOptionWithParam;
+                string patternShort = @Option.RegularExpressions.ShortOptionWithParam;
                 // handle parameters like:
                 //   --number=42
                 if (Regex.IsMatch(name, patternLong))
@@ -118,23 +97,15 @@ namespace dppopt
                     // delete the option from the remaining input arguments list
                     remainingArguments.RemoveAt(0);
 
-                    // get the number of parameters it might take
-                    //DEPRECATED
 
-                    //        if there is any parameter immediately after the option in the same argument
-                    //            store it as the option parameter
-                    //TODO - how to?
-
-                    //        if there is not a valid number of parameters after the option
-                    //DEPRECATED
-
-
-                    //            if the option should take some parameters and there are any in the input list
+                    // if the option should take some parameters 
+                    // and there are any in the input list
                     List<string> parameters = new List<string>();
 
-                    if (!parameterAlreadySet && option.ParametersCount > 0 && remainingArguments.Count() > 0)
+                    if (!parameterAlreadySet && option.ParametersCount > 0 
+                        && remainingArguments.Count() > 0)
                     {
-                        //                fetch one argument and delete it from the list
+                        // fetch one argument and delete it from the list
                         parameter = remainingArguments.First();
                         parameterAlreadySet = true;
 
@@ -144,21 +115,20 @@ namespace dppopt
                         }
                         else if (option.ParametersRequired)
                         {
-                            //                error
-                            throw new ParseException("Option: " + name + ", missing reqired parametr");
+                            // error
+                            throw new ParseException("Option: " + name 
+                                + ", missing reqired parametr");
                         }
                     }
 
                     if (parameterAlreadySet)
                     {
-                        //                store it as the option parameter
+                        // store it as the option parameter
                         parameters.Add(parameter);
                         option.Action.Execute(parameters, parserState);
                     }
 
-                    
-                    //            else
-                    //        process the option, give it the parameters
+                    //process the option, give it the parameters
                 }
                 //    else (ie. argument is not an option)
                 else
@@ -178,11 +148,10 @@ namespace dppopt
                 {
                     missingReqiredOptions += reqiredOption.ToString() + "; ";
                 }
-                throw new ParseException("Missing some required options: " + missingReqiredOptions);
+                throw new ParseException("Missing some required options: " 
+                    + missingReqiredOptions);
             }
 
-            // return the rest
-            //TODO kontrola povinnych voleb
             return remainingArguments;
         }
 
