@@ -73,6 +73,11 @@ namespace dppopt
             Action.Execute(parameters, parserState);
         }
 
+        public override string ToString()
+        {
+            return String.Join(", ", Names.ToArray());
+        }
+
         #endregion
 
         #region Public properties
