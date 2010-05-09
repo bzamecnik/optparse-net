@@ -15,7 +15,11 @@ Jednoduchy priklad uziti parseru:
 	// Format volby je nasledujici:
 	// prvni radek definuje misto ulozeni hodnoty, kterou volba nastavuje
 	// volba parseru se predava metodou AddOption, ktera ma tyto parametry:
-	// pole TEDY SEM SKONCIL
+	// 		prvni je pole moznych voleb
+	//		druhy je napoveda
+	//		treti je akce, jak bude s danou volbou nalozeno a obsahuje 
+	// 			vlastnosti volby (v nasem pripade je parametr volby povinny a
+	//			zastupny symbol pro parametr volby)
 	
 	OptionValue<string> filename = new OptionValue<string>();
 	parser.AddOption(
@@ -32,14 +36,21 @@ Jednoduchy priklad uziti parseru:
 	    	) { ParametersCount = 0 }
 	    );
 	
+	...
+	
+	// nasleduje try-catch, pro odchytavani vyjimek parseru
 	
 	try
-	{              
+	{
+		// promenna input nam simuluje vstupni data z prikazove radky, ktere
+		// se predaji parseru, parser nastvy vsechny hodnoty (u nas filename
+		// a verbose) v remaningArgs zbydou jen jednoduche volby (ktere jsou
+		// za "--")
 	    string input = "-f ./filename -v";
 	    List<string> remainingArgs = (List<string>)parser.ParseArguments(input.Split(' '));
 	}
 	catch (ParseException exception)
 	{
+		// Zde si uzivatel muze osetrit vyjimky v nasem pripade jsou vypsany do konzole
 	    System.Console.WriteLine("exception: " + exception.ToString());
 	}
-

@@ -446,7 +446,7 @@ namespace dppopt
                         parserState.Exit(2);
                     });
                 AddOption(new Option(new string[] { "-V", "--version" },
-                        "Print the program version.", callback) { Required = true }
+                        "Print the program version.", callback) //{ Required = true }
                     );
             }
         }

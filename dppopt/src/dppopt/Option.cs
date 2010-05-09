@@ -213,7 +213,7 @@ namespace dppopt
             /// a single parameter adjacent to the option.
             /// </summary>
             public static string ShortOptionWithParam 
-                { get { return "(" + ShortOption + ")(.*)"; } }
+                { get { return "(" + ShortOption + ")(.+)"; } }
 
             /// <summary>
             /// Gets the regular expression to match a long option without
