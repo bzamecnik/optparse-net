@@ -30,6 +30,8 @@ namespace dppopt
             writer.WriteLine("Options:");
             foreach (Option option in options)
             {
+                // TODO: print the meta variable if needed (or do that in
+                // a more sophisticated HelpFormatter)
                 writer.WriteLine("  {0} {1}", String.Join(", ", option.Names.ToArray()), option.HelpText);
             }
         }

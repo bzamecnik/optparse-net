@@ -42,7 +42,7 @@ namespace dppopt
         #region Public properties
 
         /// <summary>
-        /// Stored option value.
+        /// Gets or sets the stored option value.
         /// </summary>
         public ValueType Value
         {

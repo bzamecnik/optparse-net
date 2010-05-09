@@ -6,18 +6,22 @@ using System.Text;
 namespace dppopt
 {
     /// <summary>
-    /// Action to store a value to a predefined destination object
-    /// (<see cref="OptionValue"/>).
+    /// Represents an action to store a value into a predefined destination object.
     /// </summary>
     /// <typeparam name="ValueType">Type of the value and the destination.</typeparam>
+    /// <seealso cref="OptionValue&lt;ValueType&gt;"/>
     public abstract class StorageAction<ValueType> : ParametrizedAction<ValueType>
     {
         #region Construction
 
         /// <summary>
-        /// Create the action and set the destination.
+        /// Initializes a new instance of the
+        /// <see cref="StorageAction&lt;ValueType&gt;" /> class with the
+        /// specified destination.
         /// </summary>
-        /// <param name="destination"></param>
+        /// <param name="destination">
+        /// The destination where to store the value.
+        /// </param>
         protected StorageAction(OptionValue<ValueType> destination)
         {
             Destination = destination;
@@ -27,6 +31,9 @@ namespace dppopt
 
         #region Public properties
 
+        /// <summary>
+        /// Gets the destination where to store the option value.
+        /// </summary>
         public OptionValue<ValueType> Destination { get; protected set; }
 
         #endregion
