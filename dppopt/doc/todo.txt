@@ -2,10 +2,6 @@
 
 - poøádnì napsat znìní výjimek a jejich handlování
 
-*- ArgumentParserFactory by se nemìla používat staticky
-	- její instance by mìla být v OptionsParseru
-	- ArgumentParserFactory.GetParser se používá pro ParametrizedAction.ParameterParser
-
 - pøejmenovat
 	- interfaces
 		- ArgumentParser -> IArgumentParser
@@ -19,8 +15,6 @@
 
 - zpracovat dokumentaci
 	- komentáøe ke kódu
-		- InvalidArgumentParserException
-		- ArgumentParserFactory
 		- OptionParser
 			- OptionParser.ProgramInformation
 			- OptionParser.State

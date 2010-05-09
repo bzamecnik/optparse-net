@@ -24,7 +24,7 @@ namespace dppopt
         /// Converts the string representation into its value in the specified type.
         /// </summary>
         /// <param name="argument">A string to convert.</param>
-        /// <returns>An instance of <see cref="ValueType"/> equivalent to its
+        /// <returns>An instance of <c>ValueType</c> equivalent to its
         /// string representaion in <c>argument</c>.</returns>
         /// <exception cref="FormatException">
         /// <c>argument</c> is not in correct format

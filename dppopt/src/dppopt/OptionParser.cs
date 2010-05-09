@@ -340,7 +340,8 @@ namespace dppopt
                 if (option.Names.Any(name => HasOption(name)))
                 {
                     throw new ArgumentException(
-                        "One of the options name is already defined by another option.");
+                        "One of the option names is already defined by another option.");
+                    // TODO: specify which name of which option is already defined
                 }
                 foreach (string name in option.Names)
                 {
