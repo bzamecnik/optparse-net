@@ -69,20 +69,33 @@ namespace dppopt
 
         #region Public methods
 
-        public void HandleOption(IList<string> parameters, OptionParser.State parserState)
-        {
-            Action.Execute(parameters, parserState);
-        }
-
+        /// <summary>
+        /// Returns a string representation of the option.
+        /// </summary>
+        /// <returns>a string representing the option</returns>
         public override string ToString()
         {
             return String.Join(", ", Names.ToArray());
+        }
+
+        /// <summary>
+        /// Indicates whether the specified name is a valid option name.
+        /// </summary>
+        /// <param name="name">The specified name.</param>
+        /// <returns>true if the specified name is a valid short or long
+        /// option name; false otherwise</returns>
+        public static bool IsValidOptionName(string name)
+        {
+            return IsValidShortOptionName(name) || IsValidLongOptionName(name);
         }
 
         #endregion
 
         #region Public properties
 
+        /// <summary>
+        /// Gets the list of option's synonymous names (short or long).
+        /// </summary>
         public IList<string> Names
         {
             // Possibly: return names_.AsReadOnly()
@@ -93,6 +106,10 @@ namespace dppopt
             private set { names_ = value.ToList(); }
         }
 
+        /// <summary>
+        /// Gets the action to be executed when this option is encountered
+        /// among the command line arguments.
+        /// </summary>
         public Action Action { get; private set; }
 
         /// <summary>
@@ -178,25 +195,40 @@ namespace dppopt
 
         #region Public inner classes
 
+        /// <summary>
+        /// Represents regular expressions to match option name and parameter.
+        /// </summary>
         public sealed class RegularExpressions
         {
             public static string ShortOption 
-            { get { return "-[a-zA-Z]"; } }
+                { get { return @"-[a-zA-Z]"; } }
 
             public static string ShortOptionWithParam 
-            { get { return "(" + ShortOption + ")(.*)"; } }
+                { get { return "(" + ShortOption + ")(.*)"; } }
 
             public static string LongOption 
-            { get { return "--[a-zA-Z0-9-]*"; } }
+                { get { return @"--[a-zA-Z0-9-]*"; } }
 
             public static string LongOptionWithParam 
-            { get { return "(--[a-zA-Z0-9-]+)=(.*)"; } }
+                { get { return @"(--[a-zA-Z0-9-]+)=(.*)"; } }
         }
 
         #endregion
 
         #region Private methods
 
+        /// <summary>
+        /// Returns a default name of the meta variable for the option.
+        /// </summary>
+        /// <remarks>
+        /// The default meta variable name is taken from either the first
+        /// long option name, the first short option name or the string "VAR",
+        /// whichever comes first. It is then converted to upper case,
+        /// the leading hyphens ("-") are stripped and other hyphens converted
+        /// to underscores ("_").
+        /// </remarks>
+        /// <returns>The default name of the meta variable for the option.
+        /// </returns>
         private string GetDefaultMetaVariableName()
         {
             string metaVar = Names.FirstOrDefault(name => IsValidLongOptionName(name));
@@ -207,35 +239,54 @@ namespace dppopt
             {
                 metaVar = "VAR";
             }
-            metaVar = Regex.Replace(metaVar.ToUpper(), @"^--?", "");
-            metaVar = Regex.Replace(metaVar, @"-", "_");
+            metaVar = Regex.Replace(metaVar.ToUpper(), "^--?", "");
+            metaVar = Regex.Replace(metaVar, "-", "_");
             return metaVar;
         }
 
+        /// <summary>
+        /// Indicates whether the specified name is a valid short option name.
+        /// </summary>
+        /// <param name="name">The specified name.</param>
+        /// <returns>true if the specified name is a valid short option name;
+        /// false otherwise</returns>
         private static bool IsValidShortOptionName(string name)
         {
-            return Regex.IsMatch(name, @RegularExpressions.ShortOption);
+            return Regex.IsMatch(name, RegularExpressions.ShortOption);
         }
 
+        /// <summary>
+        /// Indicates whether the specified name is a valid long option name.
+        /// </summary>
+        /// <param name="name">The specified name.</param>
+        /// <returns>true if the specified name is a valid long option name;
+        /// false otherwise</returns>
         private static bool IsValidLongOptionName(string name)
         {
-            return Regex.IsMatch(name, @RegularExpressions.LongOption);
-        }
-
-        public static bool IsValidOptionName(string name)
-        {
-            return (IsValidShortOptionName(name) ||
-                    IsValidLongOptionName(name)
-                );
+            return Regex.IsMatch(name, RegularExpressions.LongOption);
         }
 
         #endregion
 
         #region Private fields
         
+        /// <summary>
+        /// Represents the list of option names.
+        /// </summary>
+        /// <see cref="Names"/>
         private List<string> names_;
+
+        /// <summary>
+        /// Represents the meta variable for the option.
+        /// </summary>
+        /// <see cref="MetaVariable"/>
         private string metaVariable_ = null;
-        int parametersCount_ = 1;
+
+        /// <summary>
+        /// Represents the number of parameters the option accepts.
+        /// </summary>
+        /// <see cref="ParametersCount"/>
+        private int parametersCount_ = 1;
         
         #endregion
     }

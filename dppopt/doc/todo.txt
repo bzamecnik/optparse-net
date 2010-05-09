@@ -19,7 +19,6 @@
 			- OptionParser.ProgramInformation
 			- OptionParser.State
 			- OptionParser.Options
-		- Option
 	- dokumentace pøes Sandcastle
 	- další soubory
 		- architektura - doc/architecture.txt
