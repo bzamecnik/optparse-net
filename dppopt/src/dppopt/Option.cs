@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 namespace dppopt
 {
     /// <summary>
-    /// Definition of an command line option.
+    /// Represents a definition of a command line option.
     /// </summary>
     /// <remarks>
     /// <para>
@@ -45,8 +45,8 @@ namespace dppopt
         /// <param name="action">action to be executed when the option is
         /// encountered among the command line arguments</param>
         /// <exception cref="ArgumentException">
-        /// Throws if any of the names is a not valid short or long option name
-        /// or if there is not at least one name.
+        /// any of the names is a not valid short or long option name
+        /// or there is not at least one name
         /// </exception>
         public Option(string[] names, string helpText, Action action)
         {

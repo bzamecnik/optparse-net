@@ -31,6 +31,8 @@ namespace dppopt
 
         #region Public methods
 
+        #region Interface Action
+
         /// <summary>
         /// Store the option parameter into the predefined destination.
         /// </summary>
@@ -54,6 +56,8 @@ namespace dppopt
             // else if (arguments.Count == 0): leave the value unset or the default value
             // assertFalse (arguments.Count > 0)
         }
+
+        #endregion
 
         #endregion
     }

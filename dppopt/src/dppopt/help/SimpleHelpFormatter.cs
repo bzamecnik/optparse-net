@@ -6,7 +6,8 @@ using System.Text;
 namespace dppopt
 {
     /// <summary>
-    /// A simple help formatter without any sofisticated indentation or line wrapping.
+    /// A simple help formatter without any sofisticated indentation or line
+    /// wrapping.
     /// </summary>
     public class SimpleHelpFormatter : HelpFormatter
     {
@@ -22,7 +23,10 @@ namespace dppopt
         /// <param name="writer">output stream</param>
         /// <param name="options">information about the options</param>
         /// <param name="programInfo">information about the program</param>
-        public void FormatHelp(System.IO.TextWriter writer, IList<Option> options, OptionParser.ProgramInformation programInfo)
+        public void FormatHelp(
+            System.IO.TextWriter writer,
+            IList<Option> options,
+            OptionParser.ProgramInformation programInfo)
         {
             string usageLine = String.Format(programInfo.UsageFormat, programInfo.Name);
             writer.WriteLine("Usage: {0}", usageLine);
@@ -32,11 +36,14 @@ namespace dppopt
             {
                 // TODO: print the meta variable if needed (or do that in
                 // a more sophisticated HelpFormatter)
-                writer.WriteLine("  {0} {1}", String.Join(", ", option.Names.ToArray()), option.HelpText);
+                writer.WriteLine("  {0} {1}",
+                    String.Join(", ", option.Names.ToArray()), option.HelpText);
             }
         }
 
-        public void FormatVersion(System.IO.TextWriter writer, OptionParser.ProgramInformation programInfo)
+        public void FormatVersion(
+            System.IO.TextWriter writer,
+            OptionParser.ProgramInformation programInfo)
         {
             writer.WriteLine(String.Format("{0} {1}", programInfo.Name, programInfo.Version));
         }

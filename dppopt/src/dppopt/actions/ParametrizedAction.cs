@@ -25,7 +25,7 @@ namespace dppopt
         /// and checks it with a <see cref="Filter"/>.
         /// </summary>
         /// <param name="argument">An option argument to convert from string.</param>
-        /// <returns>An instance of <see cref="ValueType"/> equivalent to its
+        /// <returns>An instance of <c>ValueType</c> equivalent to its
         /// string representaion in <c>argument</c></returns>
         /// <exception cref="ParseException">
         /// <c>argument</c> is not in correct format or does not conform to
@@ -55,12 +55,26 @@ namespace dppopt
 
         #region Public properties
 
+        /// <summary>
+        /// Gets or sets the filter to check the correctness of option
+        /// parameter values.
+        /// </summary>
         public ValueFilter<ValueType> Filter
         {
-            get { return filter_; }
+            get {
+                if (filter_ == null) {
+                    filter_ = new EmptyValueFilter<ValueType>();
+                }
+                return filter_;
+            }
             set { filter_ = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the parser to convert the parameter values from
+        /// string representation which will be used by <c>ParseArgument()</c>
+        /// method.
+        /// </summary>
         public ArgumentParser<ValueType> ParameterParser{ get; set; }
 
         #endregion
@@ -90,7 +104,10 @@ namespace dppopt
 
         #region Private fields
 
-        private ValueFilter<ValueType> filter_ = new EmptyValueFilter<ValueType>();
+        /// <summary>
+        /// The filter to check the correctness of option parameter values.
+        /// </summary>
+        private ValueFilter<ValueType> filter_ ;
 
         #endregion
     }

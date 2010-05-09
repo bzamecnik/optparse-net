@@ -34,6 +34,8 @@ namespace dppopt
 
         #region Public methods
 
+        #region Interface Action
+
         /// <summary>
         /// Store a constant into the predefined destination regardsless of the
         /// option parameters.
@@ -44,6 +46,8 @@ namespace dppopt
         {
             Destination.Value = constant_;
         }
+
+        #endregion
 
         #endregion
 
