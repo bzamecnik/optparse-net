@@ -5,10 +5,30 @@ using System.Text;
 
 namespace dppopt
 {
+    /// <summary>
+    /// Represents a parser which converts the string representation of a
+    /// number to its double-precision floating-point equivalent.
+    /// </summary>
     public class DoubleArgumentParser : ArgumentParser<double>
     {
         #region Public methods
 
+        /// <summary>
+        /// Converts the string representation of a number to its
+        /// double-precision floating-point equivalent.
+        /// </summary>
+        /// <param name="argument">A string representing the number to convert.
+        /// </param>
+        /// <returns>The value of <c>argument</c> as a double-precision
+        /// floating-point number.
+        /// </returns>
+        /// <exception cref="FormatException">
+        /// <c>argument</c> is not in correct format
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// <c>argument</c> is null
+        /// </exception>
+        /// <seealso cref="Double.Parse"/>
         public double ParseArgument(string argument)
         {
             double value;
@@ -18,11 +38,11 @@ namespace dppopt
             }
             catch (FormatException ex)
             {
-                throw new ParseException("DoubleArgumentParser: Invalid argument format", ex);
+                throw new FormatException("DoubleArgumentParser: Invalid argument format: " + argument, ex);
             }
             catch (OverflowException ex)
             {
-                throw new ParseException("DoubleArgumentParser: Overflow", ex);
+                throw new FormatException("DoubleArgumentParser: Overflow: " + argument, ex);
             }
             return value;
         }
