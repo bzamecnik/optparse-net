@@ -5,6 +5,8 @@ using System.Text;
 
 namespace dppopt
 {
+    // TODO: rename: ArgumentParser -> IArgumentParser
+
     /// <summary>
     /// Represents a parser which converts a string to a value of specified
     /// type.

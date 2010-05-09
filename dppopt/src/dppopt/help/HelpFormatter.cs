@@ -5,6 +5,8 @@ using System.Text;
 
 namespace dppopt
 {
+    // TODO: rename: HelpFormatter -> IHelpFormatter
+
     /// <summary>
     /// A strategy for formatting help about using the program options to an output stream.
     /// </summary>

@@ -12,6 +12,8 @@ namespace dppopt
     {
         #region Public methods
 
+        #region Interface ArgumentParser
+
         /// <summary>
         /// Trivially passes the string without any modification.
         /// </summary>
@@ -21,6 +23,8 @@ namespace dppopt
         {
             return argument;
         }
+
+        #endregion
 
         #endregion
     }

@@ -13,6 +13,8 @@ namespace dppopt
     {
         #region Public methods
 
+        #region Interface ArgumentParser
+
         /// <summary>
         /// Converts the string representation of a number to its
         /// double-precision floating-point equivalent.
@@ -46,6 +48,8 @@ namespace dppopt
             }
             return value;
         }
+
+        #endregion
 
         #endregion
     }

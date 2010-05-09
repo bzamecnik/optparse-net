@@ -2,7 +2,7 @@
 
 - poøádnì napsat znìní výjimek a jejich handlování
 
-- ArgumentParserFactory by se nemìla používat staticky
+*- ArgumentParserFactory by se nemìla používat staticky
 	- její instance by mìla být v OptionsParseru
 	- ArgumentParserFactory.GetParser se používá pro ParametrizedAction.ParameterParser
 
@@ -12,6 +12,7 @@
 	- další soubory
 		- architektura - doc/architecture.txt
 		- tutoriál s pøíklady - doc/use-cases.txt nebo spíš doc/examples.txt
+			- další use cases se zbývajícími argumenty
 
 - sestavit balíèek
 	- zdrojáky

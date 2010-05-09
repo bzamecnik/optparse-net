@@ -5,6 +5,8 @@ using System.Text;
 
 namespace dppopt
 {
+    // TODO: rename: ValueFilter -> IValueFilter
+
     /// <summary>
     /// Represents a filter for validating single values.
     /// </summary>

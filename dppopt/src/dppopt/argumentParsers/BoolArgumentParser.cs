@@ -24,6 +24,8 @@ namespace dppopt
     {
         #region Public methods
 
+        #region Interface ArgumentParser
+
         public bool ParseArgument(string argument)
         {
             bool value;
@@ -37,6 +39,8 @@ namespace dppopt
             }
             return value;
         }
+
+        #endregion
 
         #endregion
     }

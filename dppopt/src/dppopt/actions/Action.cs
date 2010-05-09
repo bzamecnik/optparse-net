@@ -5,6 +5,8 @@ using System.Text;
 
 namespace dppopt
 {
+    // TODO: rename Action -> IAction
+
     /// <summary>
     /// Represents an action to be executed when an associated option is
     /// encountered among the command line arguments.
