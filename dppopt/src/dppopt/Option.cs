@@ -33,7 +33,8 @@ namespace dppopt
         #region Construction
 
         /// <summary>
-        /// Create a new option instance with specified names, help text and action.
+        /// Initializes a new instance of <see cref="Option"/> classs with
+        /// specified option names, help text and action.
         /// </summary>
         /// <remarks>
         /// Option names, help text and action are then accessible using

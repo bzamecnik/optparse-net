@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-
 namespace dppopt
 {
     // TODO: mohlo by se jmenovat spis CommandLineParser
@@ -21,12 +20,20 @@ namespace dppopt
     {
         #region Construction
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="OptionParser"/> class.
+        /// </summary>
+        /// <remarks>
+        /// Some default options are defined: help, version and "--" for
+        /// termination the list of options.
+        /// </remarks>
         public OptionParser()
         {
             helpFormatter_ = new SimpleHelpFormatter();
             programInfo_ = new ProgramInformation(this);
             UseDefaultHelpOption = true;
             UseDefaultVersionOption = true;
+            ProgramExitEnabled = true;
             AddDefaultOptions();
         }
 
@@ -34,11 +41,24 @@ namespace dppopt
 
         #region Public methods
 
+        /// <summary>
+        /// Defines the specified option.
+        /// </summary>
+        /// <param name="option">The option to be defined.</param>
+        /// <exception cref="ArgumentException">
+        /// an option has been already defined with the same name as one of
+        /// the names of this option 
+        /// </exception>
         public void AddOption(Option option)
         {
             options_.AddOption(option);
         }
 
+        /// <summary>
+        /// Parses the list of command line arguments.
+        /// </summary>
+        /// <param name="arguments"></param>
+        /// <returns></returns>
         public IList<string> ParseArguments(string[] arguments)
         {
             List<string> remainingArguments = new List<string>(arguments);
@@ -55,8 +75,8 @@ namespace dppopt
                 string parameter = "";
                 bool parameterAlreadySet = false;
 
-                string patternLong = @Option.RegularExpressions.LongOptionWithParam;
-                string patternShort = @Option.RegularExpressions.ShortOptionWithParam;
+                string patternLong = Option.RegularExpressions.LongOptionWithParam;
+                string patternShort = Option.RegularExpressions.ShortOptionWithParam;
                 // handle parameters like:
                 //   --number=42
                 if (Regex.IsMatch(name, patternLong))
@@ -159,10 +179,34 @@ namespace dppopt
 
         #region Public properties
 
+        /// <summary>
+        /// Represents the information about the program.
+        /// </summary>
         public ProgramInformation ProgramInfo { get { return programInfo_; } }
+
+        /// <summary>
+        /// Indicates whether to add a default option to display the help.
+        /// </summary>
+        /// <seealso cref="HelpFormatter"/>
         public bool UseDefaultHelpOption { get; set; }
+
+        /// <summary>
+        /// Indicates whether to add a default option to display the help.
+        /// </summary>
+        /// <seealso cref="OptionParser.ProgramInformation"/>
         public bool UseDefaultVersionOption { get; set; }
 
+        /// <summary>
+        /// Indicates whether to automatically exit the whole program in the
+        /// <c>Exit()</c> method. Eg. after printing the help message or
+        /// program version.
+        /// </summary>
+        public bool ProgramExitEnabled { get; set; }
+
+        /// <summary>
+        /// Represents a formatter which can compile and format a help
+        /// message about how to use the command line options.
+        /// </summary>
         public HelpFormatter HelpFormatter
         {
             get { return helpFormatter_; }
@@ -173,8 +217,17 @@ namespace dppopt
 
         #region Public inner classes
 
+        /// <summary>
+        /// Represents the information about the program such as its name or
+        /// version.
+        /// </summary>
         public sealed class ProgramInformation
         {
+            /// <summary>
+            /// Initializes the <see cref="ProgramInformation"/> class with the
+            /// specified <see cref="OptionParser"/>.
+            /// </summary>
+            /// <param name="parser"></param>
             public ProgramInformation(OptionParser parser)
             {
                 Name = System.IO.Path.GetFileName(
@@ -221,6 +274,14 @@ namespace dppopt
                 return argumentParserRegistry_.GetParser<ValueType>();
             }
 
+            public void Exit(int exitCode)
+            {
+                if (Parser.ProgramExitEnabled)
+                {
+                    Environment.Exit(exitCode);
+                }
+            }
+
             #endregion
 
             #region Public properties
@@ -253,6 +314,7 @@ namespace dppopt
                 registry.RegisterParser<bool>(new BoolArgumentParser());
                 return registry;
             }
+
             #endregion
 
             #region Private fields
@@ -265,11 +327,6 @@ namespace dppopt
         #endregion
 
         #region Private methods
-
-        private void Exit()
-        {
-            // TODO - exitting strategy - exit the program or just the parser
-        }
 
         private void AddDefaultOptions()
         {
@@ -288,7 +345,7 @@ namespace dppopt
                     (OptionParser.State parserState) =>
                     {
                         parserState.Parser.ProgramInfo.PrintHelp(Console.Out);
-                        parserState.Parser.Exit();
+                        parserState.Exit(2);
                     });
                 AddOption(new Option(
                         new string[] { "-h", "--help" },
@@ -303,9 +360,9 @@ namespace dppopt
                     (OptionParser.State parserState) =>
                     {
                         parserState.Parser.ProgramInfo.PrintVersionInfo(Console.Out);
-                        parserState.Parser.Exit();
+                        parserState.Exit(2);
                     });
-                AddOption(new Option(new string[] { "-v", "--version" },
+                AddOption(new Option(new string[] { "-V", "--version" },
                         "Print the program version.", callback) { Required = true }
                     );
             }
