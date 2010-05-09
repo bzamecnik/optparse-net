@@ -1,0 +1,45 @@
+Jednoduchy priklad uziti parseru:
+
+	// Pridani namespace
+	using dppopt;
+	
+	...
+	
+	// Vytvoreni instance parseru a nastaveni zakladnich informaci o programu 
+	OptionParser parser = new OptionParser();
+	parser.ProgramInfo.Name = "Time";
+	parser.ProgramInfo.Version = "3.14";
+	
+	// Pridavani jednotlivych voleb (s parametry, napovedou a pripadnymi
+	// filtry, zajistujici konkretni moznosti hodnot parametru)
+	// Format volby je nasledujici:
+	// prvni radek definuje misto ulozeni hodnoty, kterou volba nastavuje
+	// volba parseru se predava metodou AddOption, ktera ma tyto parametry:
+	// pole TEDY SEM SKONCIL
+	
+	OptionValue<string> filename = new OptionValue<string>();
+	parser.AddOption(
+	    new Option(new string[] { "-f", "--file" }, "write report to FILE",
+	        new StoreAction<string>(filename)
+	        ) { ParametersRequired = true, MetaVariable = "FILE" }
+	    );
+
+	OptionValue<bool> verbose = new OptionValue<bool>(false);
+	parser.AddOption(
+	    new Option(new string[] { "-v", "--verbose" }, 
+	    	"Give very verbose output about all the program knows about.",
+	        new StoreConstAction<bool>(verbose, true)
+	    	) { ParametersCount = 0 }
+	    );
+	
+	
+	try
+	{              
+	    string input = "-f ./filename -v";
+	    List<string> remainingArgs = (List<string>)parser.ParseArguments(input.Split(' '));
+	}
+	catch (ParseException exception)
+	{
+	    System.Console.WriteLine("exception: " + exception.ToString());
+	}
+
