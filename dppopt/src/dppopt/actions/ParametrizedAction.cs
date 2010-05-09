@@ -96,7 +96,7 @@ namespace dppopt
         /// </exception>
         private void EnsureParameterParser(OptionParser.State parserState) {
             if (ParameterParser == null) {
-                ParameterParser = parserState.ArgumentParserFactory.GetParser<ValueType>();
+                ParameterParser = parserState.ArgumentParserRegistry.GetParser<ValueType>();
             }
         }
 

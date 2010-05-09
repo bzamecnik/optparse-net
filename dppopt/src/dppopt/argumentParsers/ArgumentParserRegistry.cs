@@ -5,7 +5,7 @@ using System.Text;
 
 namespace dppopt
 {
-    public sealed class ArgumentParserFactory
+    public sealed class ArgumentParserRegistry
     {
         #region Public methods
 

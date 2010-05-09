@@ -131,7 +131,7 @@ namespace dppopt
         }
 
         /// <summary>
-        /// States that the option's parameter is required, ie. it does not
+        /// Indicates that the option's parameter is required, ie. it does not
         /// accept a default value in case the parameter is not given.
         /// </summary>
         /// <remarks>
@@ -168,7 +168,7 @@ namespace dppopt
         }
 
         /// <summary>
-        /// States that the option is required, ie. it must appear at least
+        /// Indicates that the option is required, ie. it must appear at least
         /// once in the input arugment list. The default is <c>false</c>,
         /// meaning the option is truly optional.
         /// </summary>

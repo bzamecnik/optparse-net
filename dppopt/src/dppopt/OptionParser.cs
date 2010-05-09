@@ -218,7 +218,7 @@ namespace dppopt
 
             public ArgumentParser<ValueType> GetDefaultArgumentParser<ValueType>()
             {
-                return argumentParserFactory_.GetParser<ValueType>();
+                return argumentParserRegistry_.GetParser<ValueType>();
             }
 
             #endregion
@@ -230,34 +230,34 @@ namespace dppopt
 
             public OptionParser Parser { get; private set; }
 
-            public ArgumentParserFactory ArgumentParserFactory {
+            public ArgumentParserRegistry ArgumentParserRegistry {
                 get {
-                    if (argumentParserFactory_ == null) {
-                        argumentParserFactory_ = CreateDefaultArgumentParserFactory();
+                    if (argumentParserRegistry_ == null) {
+                        argumentParserRegistry_ = CreateDefaultArgumentParserRegistry();
                     }
-                    return argumentParserFactory_;
+                    return argumentParserRegistry_;
                 }
-                set { argumentParserFactory_ = value; }
+                set { argumentParserRegistry_ = value; }
             }
 
             #endregion
 
             #region Private methods
 
-            private static ArgumentParserFactory CreateDefaultArgumentParserFactory()
+            private static ArgumentParserRegistry CreateDefaultArgumentParserRegistry()
             {
-                ArgumentParserFactory factory = new ArgumentParserFactory();
-                factory.RegisterParser<string>(new StringArgumentParser());
-                factory.RegisterParser<int>(new IntArgumentParser());
-                factory.RegisterParser<double>(new DoubleArgumentParser());
-                factory.RegisterParser<bool>(new BoolArgumentParser());
-                return factory;
+                ArgumentParserRegistry registry = new ArgumentParserRegistry();
+                registry.RegisterParser<string>(new StringArgumentParser());
+                registry.RegisterParser<int>(new Int32ArgumentParser());
+                registry.RegisterParser<double>(new DoubleArgumentParser());
+                registry.RegisterParser<bool>(new BoolArgumentParser());
+                return registry;
             }
             #endregion
 
             #region Private fields
 
-            private ArgumentParserFactory argumentParserFactory_;
+            private ArgumentParserRegistry argumentParserRegistry_;
 
             #endregion
         }

@@ -13,10 +13,7 @@
 		- Action -> IAction
 		- HelpFormatter -> IHelpFormatter
 	- tøídy
-		- RangeValueFilter -> IntervalValueFilter
-		- IntArgumentParser -> Int32ArgumentParser
 		- OptionParser -> CommandLineParser
-		- ArgumentParserFactory -> ArgumentParserRegistry
 
 - OptionParser.Exit() - exitting strategy
 

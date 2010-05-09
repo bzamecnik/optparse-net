@@ -59,10 +59,10 @@
   <ItemGroup>
     <Compile Include="actions\Action.cs" />
     <Compile Include="actions\CallbackAction.cs" />
-    <Compile Include="argumentParsers\ArgumentParserFactory.cs" />
+    <Compile Include="argumentParsers\ArgumentParserRegistry.cs" />
     <Compile Include="argumentParsers\BoolArgumentParser.cs" />
     <Compile Include="argumentParsers\DoubleArgumentParser.cs" />
-    <Compile Include="argumentParsers\IntArgumentParser.cs" />
+    <Compile Include="argumentParsers\Int32ArgumentParser.cs" />
     <Compile Include="argumentParsers\InvalidArgumentParserException.cs" />
     <Compile Include="argumentParsers\StringArgumentParser.cs" />
     <Compile Include="filters\ChoiceValueFilter.cs" />
@@ -75,7 +75,7 @@
     <Compile Include="actions\ParametrizedAction.cs" />
     <Compile Include="ParseException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="filters\RangeValueFilter.cs" />
+    <Compile Include="filters\IntervalValueFilter.cs" />
     <Compile Include="actions\SimpleCallbackAction.cs" />
     <Compile Include="actions\StorageAction.cs" />
     <Compile Include="actions\StoreAction.cs" />
