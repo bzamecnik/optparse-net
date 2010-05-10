@@ -4,37 +4,48 @@
 - A Command Line Parser for .NET
 - language: C#
 - authors:
-	- Vojtech Sedlacek <bigboardv at seznam dot cz>
-	- Bohumir Zamecnik <bohumir at zamecnik dot org>
+    - Vojtech Sedlacek <bigboardv at seznam dot cz>
+    - Bohumir Zamecnik <bohumir at zamecnik dot org>
 
 ===== Requirements =====
 
 - Microsoft .NET Framework 3.5
 
 - Windows SDK for Windows Server 2008 and .NET Framework 3.5
-	- http://www.microsoft.com/downloads/details.aspx?FamilyID=E6E1C3DF-A74F-4207-8586-711EBE331CDC&displaylang=en
-	- not needed to install docs and sample -> it takes about 50MB  
+    - http://www.microsoft.com/downloads/details.aspx?FamilyID=E6E1C3DF-A74F-4207-8586-711EBE331CDC&displaylang=en
+    - not needed to install docs and sample -> it takes about 50MB  
 
 - nant 0.90
-	- http://nant.sourceforge.net/
+    - http://nant.sourceforge.net/
 
-===== Build =====
+===== Building =====
 
-- nant on Microsoft .NET Framework 3.5:
+Command to build it with on Microsoft .NET Framework 3.5:
 
-nant
+  nant
 
-- nant on Microsoft .NET Framework 4.0:
+Command to build it with NAnt on Microsoft .NET Framework 4.0:
 
-nant -D:msbuild.version=v4.0.30319
+  nant -D:msbuild.version=v4.0.30319
 
-- MSBuild, .NET 4.0
+You can build it directly with MSBuild (.NET 4.0):
 
-C:\windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe src\dppopt\dppopt.csproj
+  C:\windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe src\dppopt\dppopt.csproj
+
+To clean the build type:
+
+  nant clean
+
+To generate the documentation type:
+
+  nant docs
 
 ===== Documentation =====
 
 - doc/tutorial.txt
 - doc/use-cases.txt
-- doc/architecture.txt
-- doc/sandcastle/ - docs generated from XML comments
+- doc/sandcastle/Help/Index.html
+    - docs generated from XML comments
+    - it is built using Sandcastle [http://sandcastle.codeplex.com/]
+      with the config file: doc/sandcastle/dppopt-sandcastle.shfbproj
+    - to build the docs type: nant docs

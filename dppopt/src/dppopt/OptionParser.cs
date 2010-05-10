@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace dppopt
 {
-    // TODO: mohlo by se jmenovat spis CommandLineParser
+    // TODO: a better name could be CommandLineParser
 
     /// <summary>
     /// The command line option parser processes the list of command line arguments
@@ -419,7 +419,7 @@ namespace dppopt
                     {
                         parserState.ContinueParsing = false;
                     })
-                )
+                ) { ParametersCount = 0 }
             );
 
             if (UseDefaultHelpOption)
@@ -433,7 +433,7 @@ namespace dppopt
                 AddOption(new Option(
                         new string[] { "-h", "--help" },
                         "Print the help on program options.",
-                        callback)
+                        callback) { ParametersCount = 0 }
                     );
             }
 
@@ -446,7 +446,8 @@ namespace dppopt
                         parserState.Exit(2);
                     });
                 AddOption(new Option(new string[] { "-V", "--version" },
-                        "Print the program version.", callback) //{ Required = true }
+                        "Print the program version.", callback)
+                        { ParametersCount = 0 }
                     );
             }
         }
