@@ -117,6 +117,12 @@ namespace dppopt
                     // delete the option from the remaining input arguments list
                     remainingArguments.RemoveAt(0);
 
+                    //TODO: tady by se melo ukoncit parsovani "--"
+                    //mozna udelat pres parserState.ContinueParsing = false;
+                    if (name == "--")
+                    {
+                        break;
+                    }
 
                     // if the option should take some parameters 
                     // and there are any in the input list
@@ -141,22 +147,15 @@ namespace dppopt
                         }
                     }
 
-                    if (parameterAlreadySet)
-                    {
-                        // store it as the option parameter
-                        parameters.Add(parameter);
-                        option.Action.Execute(parameters, parserState);
-                    }
-
-                    //process the option, give it the parameters
+                    //DEPRECATED if (parameterAlreadySet)
+                    // store it as the option parameter
+                    parameters.Add(parameter);
+                    option.Action.Execute(parameters, parserState);
                 }
                 //    else (ie. argument is not an option)
                 else
                 {
                     throw new ParseException("Invalid option name:" + name);
-                    //DEPRECATED
-                    //        parsing should be stopped
-                    //parserState.ContinueParsing = false;
                 }
             }
 
