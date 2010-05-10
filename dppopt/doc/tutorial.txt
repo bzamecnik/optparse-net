@@ -1,3 +1,10 @@
+Nasledujici text zjednodusene popisuje pouziti parseru.
+Dale doporucuji se podivat na priklady v tomto poradi (argumenty):
+1) dppoptAliasExample (--dir ./rootdir/nextdir/ -r)
+2) dppoptTimeExample (-f YYYY.MM.DDD -p -o ./outputfile -a -v)
+3) dppoptComplexExample
+
+
 Jednoduchy priklad uziti parseru:
 
 	// Pridani namespace
@@ -27,6 +34,8 @@ Jednoduchy priklad uziti parseru:
 	        new StoreAction<string>(filename)
 	        ) { ParametersRequired = true, MetaVariable = "FILE" }
 	    );
+
+	// Do zavorky je mozne vlozit vychozi hodnotu (v nasem pripade "false")
 
 	OptionValue<bool> verbose = new OptionValue<bool>(false);
 	parser.AddOption(
