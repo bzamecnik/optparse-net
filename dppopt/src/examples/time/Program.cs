@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using dppopt;
 
-namespace dppoptTimeExample
+namespace dppopt.examples.time
 {
     class Program
     {
@@ -88,7 +88,7 @@ namespace dppoptTimeExample
             try
             {
                 // Run options parser (for example with args: -f YYYY.MM.DDD -p -o ./outputfile -a -v)
-                List<string> remainingArgs = (List<string>)parser.ParseArguments(args);
+                IList<string> remainingArgs = parser.ParseArguments(args);
             }
             catch (ParseException exception)
             {

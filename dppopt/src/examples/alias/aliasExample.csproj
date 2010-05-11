@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -8,8 +8,8 @@
     <ProjectGuid>{A0D8CD84-B992-41F1-9E67-81961B3A1A9C}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>dppoptAliasExample</RootNamespace>
-    <AssemblyName>dppoptAliasExample</AssemblyName>
+    <RootNamespace>dppopt.examples.alias</RootNamespace>
+    <AssemblyName>aliasExample</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -47,7 +47,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\dppopt\dppopt.csproj">
+    <ProjectReference Include="..\..\dppopt\dppopt.csproj">
       <Project>{2098C9C4-2B92-4F0C-8B9F-ECAB0DD4302A}</Project>
       <Name>dppopt</Name>
     </ProjectReference>
