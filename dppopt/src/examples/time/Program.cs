@@ -46,7 +46,7 @@ namespace dppopt.examples.time
                 new Option(new string[] { "-f", "--format" }, 
                     "Specify output format, possibly overriding the format specified in the environment variable TIME.",
                     new StoreAction<string>(format)
-                ) { ParametersRequired = true, MetaVariable = "TIME" }
+                ) { ParametersRequired = true }
             );
 
             // Add option, which has not any parameter
@@ -89,6 +89,11 @@ namespace dppopt.examples.time
             {
                 // Run options parser (for example with args: -f YYYY.MM.DDD -p -o ./outputfile -a -v)
                 IList<string> remainingArgs = parser.ParseArguments(args);
+                Console.WriteLine("format: {0}", format);
+                Console.WriteLine("portability: {0}", portability);
+                Console.WriteLine("output: {0}", output);
+                Console.WriteLine("append: {0}", append);
+                Console.WriteLine("verbose: {0}", verbose);
             }
             catch (ParseException exception)
             {
