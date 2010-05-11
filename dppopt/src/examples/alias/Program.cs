@@ -68,14 +68,14 @@ namespace dppoptAliasExample
             {
                 // Run options parser (for example with args: --dir ./rootdir/nextdir/ -r)
                 IList<string> remainingArgs = parser.ParseArguments(args);
-                Console.WriteLine("dir: {0}", dir);
-                Console.WriteLine("manpage: {0}", manpage);
-                Console.WriteLine("resolve: {0}", resolve);
+                Console.WriteLine("dir: {0}", dir.Value);
+                Console.WriteLine("manpage: {0}", manpage.Value);
+                Console.WriteLine("resolve: {0}", resolve.Value);
             }
             catch (ParseException exception)
             {
                 // User control the exception
-                System.Console.WriteLine("exception: " + exception.ToString());
+                System.Console.WriteLine("exception: " + exception.Message);
             }
         }
     }

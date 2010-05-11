@@ -89,11 +89,11 @@ namespace dppopt.examples.time
             {
                 // Run options parser (for example with args: -f YYYY.MM.DDD -p -o ./outputfile -a -v)
                 IList<string> remainingArgs = parser.ParseArguments(args);
-                Console.WriteLine("format: {0}", format);
-                Console.WriteLine("portability: {0}", portability);
-                Console.WriteLine("output: {0}", output);
-                Console.WriteLine("append: {0}", append);
-                Console.WriteLine("verbose: {0}", verbose);
+                Console.WriteLine("format: {0}", format.Value);
+                Console.WriteLine("portability: {0}", portability.Value);
+                Console.WriteLine("output: {0}", output.Value);
+                Console.WriteLine("append: {0}", append.Value);
+                Console.WriteLine("verbose: {0}", verbose.Value);
             }
             catch (ParseException exception)
             {
